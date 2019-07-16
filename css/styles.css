@@ -1,0 +1,19 @@
+/*alert*/
+.alert {border-radius: 0;}
+
+/*button*/
+.btn:focus, .form-control.is-invalid:focus,.form-control.is-valid:focus{box-shadow: none!important;}
+
+/*form*/
+label {font-weight: 600;}
+.form-control:focus {box-shadow: none;border: .0625rem solid #007bff;/*2188ff*/}
+.form-control-lg, .btn-lg {padding: .625rem;font-size: 1rem;}
+.required {color: #dc3545}
+
+/*jumbotron*/
+.jumbotron{background-color: transparent;}
+
+/*table*/
+table {font-size: .875rem;}/*14px*/
+
+#show-password {display: none;cursor: pointer;}
