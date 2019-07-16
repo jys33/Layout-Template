@@ -17,11 +17,13 @@ $data = [
     'apellido' => '',
     'email' => '',
     'password' => '',
+    'confirm_password' => '',
     /*Error*/
     'nombre_err' => '',
     'apellido_err' => '',
     'email_err' => '',
     'password_err' => '',
+    'confirm_password_err' => ''
 ];
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 3)
@@ -94,15 +96,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 3)
             // Elige una contraseña más segura. Prueba con una combinación de letras, números y símbolos.
         } else {
             $data['password'] = $_POST['password'];
+            if(!empty($_POST["confirmarPassword"])) {
+                $data['confirm_password'] = $_POST['confirmarPassword'];
+                if($data['password'] !== $data['confirm_password']){
+                    $data['confirm_password_err'] = 'Las contraseñas ingresadas no coinciden.';
+                }
+            } else {
+                $data['confirm_password_err'] = 'Por favor confirme la contraseña.';
+            }
         }
     }
 
     // Si todo esta OKAY
     if (
-        empty( $data['nombre_err'] ) &&
+        empty($data['nombre_err'] ) &&
         empty( $data['apellido_err'] ) &&
         empty( $data['email_err'] ) &&
-        empty( $data['password_err'] )
+        empty( $data['password_err'] ) &&
+        empty( $data['confirm_password_err'] )
     )
     {
         echo '<div class="alert alert-info" role="alert">Todos los datos son válidos.</div>';
@@ -157,6 +168,11 @@ extract($data);
                             <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
                             <input class="form-control form-control-lg <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
                             <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirmar contraseña</label>
+                            <input class="form-control form-control-lg <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
+                            <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
                         </div>
                         <button type="submit" class="btn btn-success btn-lg px-5">Save</button>
                     </form>

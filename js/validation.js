@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastName = document.querySelector("#lastName");
     let email = document.querySelector("#email");
     let password = document.querySelector("#password");
+    let confirmPassword = document.querySelector('#confirmPassword');
 
     let form = document.querySelector(".myForm");
 
@@ -21,7 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
         password.name = "password";
         return true;
     }
-
+    function validateConfirmPassword() {
+        if (!password.classList.contains('is-valid')) {
+            setInvalid(confirmPassword, 'La contraseña debe ser válida.');
+            return;
+        }
+        // If they match
+        if (password.value !== confirmPassword.value) {
+            setInvalid(confirmPassword, 'Las contraseñas no coinciden.');
+            return;
+        } else {
+            setValid(confirmPassword);
+        }
+        return true;
+    }
     function validateFirstname(){
         if (checkIfEmpty(firstName)) return;
         if (!checkIfOnlyLetters(firstName)) return;
@@ -152,6 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
     lastName.addEventListener("focusout", validateLastname);
     email.addEventListener("focusout", validateEmail);
     password.addEventListener("focusout", validatePassword);
+    confirmPassword.addEventListener("focusout", validateConfirmPassword);
+
+    confirmPassword.addEventListener("input", validateConfirmPassword);
     
     // firstName.addEventListener("input", validateFirstname);
     // lastName.addEventListener("input", validateLastname);
@@ -162,7 +179,8 @@ document.addEventListener("DOMContentLoaded", () => {
             validateEmail() && 
             validateFirstname() && 
             validateLastname() && 
-            validatePassword())
+            validatePassword() &&
+            validateConfirmPassword())
             ){
             e.preventDefault();
         }

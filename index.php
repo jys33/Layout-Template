@@ -198,18 +198,18 @@ $data = [
     							<form>
     								<div class="form-group">
     									<label for="email">Email</label>
-    									<input class="rounded-0 form-control form-control-lg is-valid" type="email" name="email"  />
-    									<div class="invalid-feedback">Este es un test válido.</div>
+    									<input class="rounded-0 form-control form-control-lg" type="email" name="email"  />
+    									<div class="invalid-feedback"></div>
     								</div>
     								<div class="form-group">
     									<label for="password">Contraseña</label>
     									<a class="float-right" href="/password_reset.php">¿Olvidó su contraseña?</a>
     									<div class="input-group">
-    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control form-control-lg is-invalid" id="Password" value="hiddenpassword">
+    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control form-control-lg" id="Password" value="hiddenpassword">
     									    <div class="input-group-append">
     									        <span class="input-group-text" id="show-password">Mostrar</span>
     									    </div>
-    									    <div class="invalid-feedback">Este es un test.</div>
+    									    <div class="invalid-feedback"></div>
     									</div>
     								</div>
     								<button type="submit" class="btn btn-success btn-lg">Save</button>
