@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
     function checkIfOnlyLetters(field) {
-        if (/^[a-zA-Z ]+$/.test(field.value)) {
+        if (/^[a-zA-ZñÑ ]+$/.test(field.value)) {
             setValid(field);
             return true;
         } else {

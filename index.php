@@ -155,46 +155,10 @@ $data = [
 
     			<section class="my-5">
     				<div class="row align-items-center">
-    					<div class="col-md-7 mb-3">
-    						<h2 class="">Sign Up</h2>
-    						<form>
-    							<div class="form-row">
-    							    <div class="form-group col-md-6">
-    							        <label for="lastname">Last Name</label>
-    							        <input class="form-control form-control-lg" type="text" name="lastname" onfocusout="" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							    <div class="form-group col-md-6">
-    							        <label for="firstname">First Name</label>
-    							        <input class="form-control form-control-lg" type="text" name="firstname" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							</div>
-    							<div class="form-row">
-    							    <div class="form-group col-md-12">
-    							        <label for="email">Email</label>
-    							        <input class="form-control form-control-lg" type="email" name="email"  />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							</div>
-    							<div class="form-row">
-    							    <div class="form-group col-md-6">
-    							        <label for="password">Password</label>
-    							        <input class="form-control form-control-lg" type="password" name="password" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							    <div class="form-group col-md-6">
-    							        <label for="confirmPassword">Confirm Password</label>
-    							        <input class="form-control form-control-lg" type="password" name="confirmPassword" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							</div>
-    							<button type="submit" class="btn btn-success btn-lg">Save</button>
-    						</form>
-    					</div>
-    					<div class="col-md-5 mb-3">
+
+    					<div class="col-md-5 mb-3 mx-auto">
     						<div class="bg-light p-4 rounded">
-    							<h2 class="">Sign In</h2>
+    							<h2 class="mb-3">Sign In</h2>
     							<form>
     								<div class="form-group">
     									<label for="email">Email</label>
@@ -216,8 +180,11 @@ $data = [
     							</form>
     						</div>
     					</div>
+                        <div class="col-md-6 my-3 mx-auto" style="font-size: 1.25rem;">
+                            <img src="img/abstract.svg" style="width: 100%;opacity: 0.85;">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
     				</div>
-
     			</section>
     		</div>
 

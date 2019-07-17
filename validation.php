@@ -136,7 +136,11 @@ extract($data);
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	    <title>Validation</title>
-	    <link rel="stylesheet" type="text/css" href="css/styles.css">
+	    <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
+        <style type="text/css">
+            .form-control, .btn-lg {height: auto;padding: 10px;}
+            .btn-lg{font-size: 1rem;}
+        </style>
     </head>
     <body>
         <main role="main">
@@ -148,30 +152,30 @@ extract($data);
                     <form class="myForm" method="POST">
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input class="form-control form-control-lg <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" id="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="50" autofocus="autofocus" autocomplete="off" />
+                            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" id="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="50" autofocus="autofocus" autocomplete="off" />
                             <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="firstName">Nombre</label>
-                                <input class="form-control form-control-lg <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
+                                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
                                 <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="lastName">Apellido</label>
-                                <input class="form-control form-control-lg <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
+                                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
                                 <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="mb-0">Contraseña</label>
                             <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-                            <input class="form-control form-control-lg <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
+                            <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
                             <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
                         </div>
                         <div class="form-group">
                             <label for="confirmPassword">Confirmar contraseña</label>
-                            <input class="form-control form-control-lg <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
+                            <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
                             <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
                         </div>
                         <button type="submit" class="btn btn-success btn-lg px-5">Save</button>
