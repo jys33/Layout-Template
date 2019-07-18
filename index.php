@@ -91,12 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
 
     		<div class="container p-5">
 
-    			<section class="text-center">
+    			<section class="text-center mb-5">
     			    <img id="homer" src="http://thenewcode.com/assets/images/thumbnails/homer-simpson.svg" style="width: 200px">
     			    <h1>Oh no, the world will end in
     			        <span id="countdown"><?= date('s') ?></span> seconds!
     			    </h1>
     			</section>
+
     			<section>
     				<div class="row align-items-center">
     					<div class="col-md-5 mb-3">
@@ -188,7 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     					<div class="col-md-5 mx-auto">
     						<div class="bg-light p-4 rounded">
     							<h2 class="mb-4">Sign In</h2>
-    							<form>
+    							<form onsubmit="return false;">
     								<div class="form-group">
     									<label for="email">Email</label>
     									<input autocomplete="off" maxlength="50" name="email" type="email" class="rounded-0 form-control form-control-lg" value="example@mail.com" />
@@ -196,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     								</div>
     								<div class="form-group">
     									<label for="password">Contraseña</label>
-    									<a class="float-right" href="/password_reset.php">¿Olvidó su contraseña?</a>
+    									<a class="float-right" href="/password_reset.php" style="font-size:14px;margin-top: .2rem;">¿Olvidó su contraseña?</a>
     									<div class="input-group">
     									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control form-control-lg" id="Password" value="hiddenpassword">
     									    <div class="input-group-append">
