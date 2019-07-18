@@ -158,12 +158,12 @@ extract($data);
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="firstName">Nombre</label>
-                                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
+                                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')" />
                                 <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="lastName">Apellido</label>
-                                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return permite(event, 'car')" />
+                                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')" />
                                 <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
                             </div>
                         </div>

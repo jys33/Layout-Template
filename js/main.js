@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let temp = headingEl.textContent;
 	let btnEl = document.querySelector('.translate-btn');
 
-	function changeTitle(event) {
+	function translateTitle(event) {
 	    //console.log(this);
 	    if (headingEl.textContent == 'Usuarios Registrados') {
 	        headingEl.textContent = temp;
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	    }
 	}
 
-	btnEl.onclick = changeTitle;
+	btnEl.onclick = translateTitle;
 
 	// Ejemplo 2: Validación de formulario
 	let form = document.querySelector('#registration');

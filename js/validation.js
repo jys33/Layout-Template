@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let firstName = document.querySelector("#firstName");
-    let lastName = document.querySelector("#lastName");
-    let email = document.querySelector("#email");
-    let password = document.querySelector("#password");
-    let confirmPassword = document.querySelector('#confirmPassword');
+    const firstName = document.querySelector("#firstName");
+    const lastName = document.querySelector("#lastName");
+    const email = document.querySelector("#email");
+    const password = document.querySelector("#password");
+    const confirmPassword = document.querySelector('#confirmPassword');
 
-    let form = document.querySelector(".myForm");
+    const form = document.querySelector(".myForm");
 
     function validatePassword() {
         // Empty check
@@ -164,6 +164,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     firstName.addEventListener("focusout", validateFirstname);
     lastName.addEventListener("focusout", validateLastname);
+    firstName.onpaste = event => false;
+    lastName.onpaste = event => false;
+    firstName.ondragover = event => false;
+    lastName.ondragover = event => false;
     email.addEventListener("focusout", validateEmail);
     password.addEventListener("focusout", validatePassword);
     confirmPassword.addEventListener("focusout", validateConfirmPassword);
@@ -187,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-function permite(elEvento, permitidos) {
+function allow(elEvento, permitidos) {
     // Variables que definen los caracteres permitidos
     var numeros = "0123456789";
     var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
@@ -226,4 +230,7 @@ function permite(elEvento, permitidos) {
     // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
     // o si es una tecla especial
     return permitidos.indexOf(caracter) != -1 || tecla_especial;
+}
+function numbersOnly(event) {
+    return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));
 }

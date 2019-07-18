@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
                                     }
                                     ?>
                                 </textarea>
-    							<button type="submit" class="btn btn-success btn-lg">Save</button>
+    							<button type="submit" class="btn btn-success btn-lg px-5">Save</button>
     						</form>
     					</div>
     					<div class="col-md-7 mb-3">
@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     							<form>
     								<div class="form-group">
     									<label for="email">Email</label>
-    									<input class="rounded-0 form-control form-control-lg" type="email" name="email"  />
+    									<input autocomplete="off" maxlength="50" name="email" type="email" class="rounded-0 form-control form-control-lg" value="example@mail.com" />
     									<div class="invalid-feedback"></div>
     								</div>
     								<div class="form-group">
@@ -205,11 +205,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     									    <div class="invalid-feedback"></div>
     									</div>
     								</div>
-    								<button type="submit" class="btn btn-success btn-lg">Save</button>
+    								<button type="submit" class="btn btn-success btn-lg px-5">Save</button>
     							</form>
     						</div>
     					</div>
-                        <div class="col-md-6 mx-auto" style="font-size: 1.25rem;">
+                        <div class="col-md-5 mx-auto" style="font-size: 1.25rem;">
                             <img src="img/abstract.svg" style="width: 100%;opacity: 0.85;">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
