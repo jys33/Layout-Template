@@ -93,5 +93,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// objeto window
 	console.log(window.location.href);
-	console.log(window.outerWidth + 'px x ' + window.outerHeight + 'px');
 })
