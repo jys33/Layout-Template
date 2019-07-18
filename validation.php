@@ -26,7 +26,7 @@ $data = [
     'confirm_password_err' => ''
 ];
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 3)
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
 {
     // Sanitizamos el array POST
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);

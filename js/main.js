@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	        event.preventDefault();
 	    }
 	}
-	form.onsubmit = testInput;
+	//form.onsubmit = testInput;
 
 	// Ejemplo 3: Conteo regresivo
 
