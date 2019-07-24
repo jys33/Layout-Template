@@ -1,6 +1,35 @@
 <?php
-function validatePasswordStrength ($password) {
+final class Index {
+    private static $CLASSES = [
+        'Config' => '/config/Config.php',
+        'Db' => '/db/Db.php'
+    ];
 
+    public function init() {
+        // Notificar todos los errores de PHP (ver el registro de cambios)
+        // display errors, warnings, and notices
+        ini_set("display_errors", true);
+        error_reporting(E_ALL);
+        mb_internal_encoding('UTF-8');
+        spl_autoload_register([$this, 'loadClass']);
+
+        session_start();
+    }
+
+    public function loadClass($name) {
+        if (!array_key_exists($name, self::$CLASSES)) {
+            die('Class "' . $name . '" not found.');
+        }
+        require_once __DIR__ . self::$CLASSES[$name];
+    }
+}
+
+$index = new Index();
+$index->init();
+
+Config::setDirectory('section');
+
+function validatePasswordStrength($password) {
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
     $number    = preg_match('@[0-9]@', $password);
@@ -12,6 +41,34 @@ function validatePasswordStrength ($password) {
         return true;
     }
 }
+
+function checkIfOnlyLetters($field) {
+    if( !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]+$/", $field) ) return false;
+    return true;
+}
+
+function meetLength($field, $minLength, $maxLength) {
+    $strLen = strlen(trim($field));
+    if ($strLen >= $minLength && $strLen <= $maxLength) {
+        return true;
+    } elseif ($strLen < $minLength) {
+        return false;
+    } else {
+        return false;
+    }
+}
+
+function isEmpty($value) {
+    if (empty(trim($value))) return true;
+    return false;
+}
+
+function checkEmailAddress($email) {
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return false;
+    return true;
+}
+
 $data = [
     'nombre' => '',
     'apellido' => '',
@@ -25,101 +82,133 @@ $data = [
     'password_err' => '',
     'confirm_password_err' => ''
 ];
+
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
 {
     // Sanitizamos el array POST
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
-    // Trim all the incoming data: (quitamos los espacios en blanco)
+    // Trim all the incoming data: (quitamos los espacios en blanco de los datos entrantes)
     $trimmed = array_map('trim', $_POST);
     $_POST = preg_replace('/\s\s+/', ' ', $trimmed);
-
-    // echo '<pre>';
-    // print_r($_POST);
-    // echo '</pre>';
 
     /**
      * Validamos el email y comprobamos si no existe en la base de datos
      */
-    if (empty( $_POST['email'] )) {
-        $data['email_err'] = 'Por favor, dinos tu dirección de correo electrónico.';
+    if (isEmpty($_POST['email'])) {
+        $data['email_err'] = 'Por favor, dinos tu email.';
     }
-    else {
-        // Remove all illegal characters from email
-        $data['email'] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        // check if e-mail address is well-formed
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $data['email_err'] = "La dirección de correo electrónico no es válida.";
+    else
+    {
+        $data['email'] = $_POST['email'];
+        if (!checkEmailAddress($data['email'])) {
+            $data['email_err'] = "El email no es válido.";
+        }
+        else
+        {
+            // consultamos la tabla por el email
+            $result = Db::getInstance()->query('SELECT user_id FROM user WHERE user_email=?', $data['email']);
+
+            // Si existe el email
+            if( count($result) != 0 ){
+                $data['email_err'] = 'Ese email ya está registrado. Prueba con otro.';
+            }
         }
     }
 
     /*
      * Validamos el nombre
      */
-    if (empty( $_POST['nombre'] )) {
+    if (isEmpty($_POST['nombre']))
+    {
         $data['nombre_err'] = 'Por favor, dinos tu nombre.';
     }
-    else {
+    else
+    {
         $data['nombre'] = $_POST['nombre'];
-
-        if( !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]{3,50}$/", $data['nombre']) ){
-            $data['nombre_err'] = 'El nombre solo debe incluir entre 3 
-            y 50 letras.';
+        if(!checkIfOnlyLetters($data['nombre'])) {
+            $data['nombre_err'] = 'El nombre solo debe incluir letras y espacios en blanco.';
+        }
+        if(!meetLength($data['nombre'], 3, 20)) {
+            $data['nombre_err'] = 'El nombre debe incluir entre 3 y 20 letras.';
         }
     }
 
     /*
      * Validamos el apellido
      */
-    if (empty( $_POST['apellido'] )) {
+    if (isEmpty($_POST['apellido']))
+    {
         $data['apellido_err'] = 'Por favor, dinos tu apellido.';
     }
-    else {
+    else
+    {
         $data['apellido'] = $_POST['apellido'];
-
-        if( !preg_match("/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]{3,50}$/", $data['apellido']) ){
-            $data['apellido_err'] = 'El apellido solo debe incluir entre 3 
-            y 50 letras.';
+        if(!checkIfOnlyLetters($data['apellido'])) {
+            $data['apellido_err'] = 'El apellido solo debe incluir letras y espacios en blanco.';
+        }
+        if(!meetLength($data['apellido'], 3, 20)) {
+            $data['apellido_err'] = 'El apellido debe incluir entre 3 y 20 letras.';
         }
     }
 
     /*
-     * Validamos la password ingresada
+     * Validamos la password
      */
-    if (empty( $_POST['password'] )) {
+    if (isEmpty($_POST['password']))
+    {
         $data['password_err'] = 'Crea una contraseña.';
     }
-    else {
-        if( !validatePasswordStrength( $_POST['password'] ) ) {
+    else
+    {
+        $data['password'] = $_POST['password'];
+        if(!validatePasswordStrength($data['password'])) {
             $data['password_err'] = 'La contraseña debe tener al menos 8 caracteres de longitud y debe incluir al menos una letra mayúscula, un número y un carácter especial.';
             // Elige una contraseña más segura. Prueba con una combinación de letras, números y símbolos.
-        } else {
-            $data['password'] = $_POST['password'];
-            if(!empty($_POST["confirmarPassword"])) {
-                $data['confirm_password'] = $_POST['confirmarPassword'];
-                if($data['password'] !== $data['confirm_password']){
+        }
+        else
+        {
+            if(!isEmpty($_POST["confirmarPassword"]))
+            {
+                // Comprobamos si las passwords son iguales
+                if($data['password'] !== $_POST['confirmarPassword']) {
                     $data['confirm_password_err'] = 'Las contraseñas ingresadas no coinciden.';
                 }
-            } else {
-                $data['confirm_password_err'] = 'Por favor confirme la contraseña.';
+            }
+            else
+            {
+                $data['confirm_password_err'] = 'Por favor, confirme la contraseña.';
             }
         }
     }
 
     // Si todo esta OKAY
     if (
-        empty($data['nombre_err'] ) &&
+        empty( $data['nombre_err'] ) &&
         empty( $data['apellido_err'] ) &&
         empty( $data['email_err'] ) &&
         empty( $data['password_err'] ) &&
         empty( $data['confirm_password_err'] )
     )
     {
-        echo '<div class="alert alert-info" role="alert">Todos los datos son válidos.</div>';
-        // echo '<pre>';
-        // print_r($data);
-        // echo '</pre>';
+        // Generamos un código de activación
+        $activationkey = bin2hex(openssl_random_pseudo_bytes(16));
+        // Creamos el hash de la password
+        $password = password_hash($data['password'] . 'P4^ncFD!i', PASSWORD_DEFAULT);
+        // Creamos la fecha y hora actual
+        $dateTime = date('Y-m-d H:i:s');
+
+        $q = 'INSERT INTO user (last_name, first_name, user_name, user_email, password, activation, created_on, last_modified_on) VALUES(?,?,?,?,?,?,?,?);';
+        $insert_result = Db::getInstance()->query($q, $data['apellido'], $data['nombre'], 'R.K.M', $data['email'], $password, $activationkey, $dateTime, $dateTime);
+
+        // Si true => todo salio bien.
+        if ($insert_result) {
+            echo '<div class="alert alert-primary text-center" role="alert">El registro fue insertado correctamente.</div>';
+        } else {
+            echo '<div class="alert alert-danger text-center" role="alert">El registro no fue realizado.</div>';
+            exit;
+        }
     }
 
 }
@@ -135,52 +224,90 @@ extract($data);
     	<!-- Bootstrap CSS -->
     	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-	    <title>Validation</title>
+	    <title>Form Validation</title>
 	    <!-- <link rel="stylesheet" type="text/css" href="css/styles.css"> -->
-        <style type="text/css">
-            .form-control, .btn-lg {height: auto;padding: 10px;}
-            .btn-lg{font-size: 1rem;}
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/material.css">
     </head>
     <body>
         <main role="main">
             
-            <div class="container p-5">
-                
-                <section style="width: 100%;max-width: 450px;padding: 15px; margin: auto;">
-                    <h2 class="mb-3">Registro de usuario:</h2>
-                    <form class="myForm" method="POST">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" id="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="50" autofocus="autofocus" autocomplete="off" />
-                            <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="firstName">Nombre</label>
-                                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')" />
-                                <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="lastName">Apellido</label>
-                                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')" />
-                                <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="mb-0">Contraseña</label>
-                            <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-                            <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
-                            <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="confirmPassword">Confirmar contraseña</label>
-                            <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
-                            <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
-                        </div>
-                        <button type="submit" class="btn btn-success btn-lg px-5">Save</button>
-                    </form>
+            <div class="container my-5">
+
+                <div class="row align-items-center">
+                    <div class="col-md-5">
+                        <section style="/*width: 100%;max-width: 520px;padding: 15px;*/">
+                            <h2 class="mb-4">Registro de usuario</h2>
+                            <form class="myForm" method="POST">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" id="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="50" autocomplete="off" placeholder=""/>
+                                    <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="firstName">Nombre</label>
+                                        <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                                        <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="lastName">Apellido</label>
+                                        <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                                        <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="mb-0">Contraseña</label>
+                                    <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
+                                    <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
+                                    <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirmar contraseña</label>
+                                    <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
+                                    <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg px-5 my-3">Enviar <span style="font-size: 14px">&#10095;</span></button>
+                            </form>
+                        </section>
+                    </div>
+                    <div class="col-md-7">
+                        <img src="img/keyboard.jpg" style="width: 100%; border-radius: 6px; opacity: 0.85;">
+                    </div>
+                </div>
+
+                <section class="mt-3">
+                    <?php $users = Db::getInstance()->query('SELECT * FROM user;'); ?>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm" style="font-size: .875rem;">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Apellido</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Usuario</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($users as $user): ?>
+                                    <tr>
+                                        <td><?= $user['user_id'] ?></td>
+                                        <td><?= $user['last_name'] ?></td>
+                                        <td><?= $user['first_name'] ?></td>
+                                        <td><?= $user['user_email'] ?></td>
+                                        <td><?= $user['user_name'] ?></td>
+                                        <td>
+                                            <a href="" class="" title="Edit">Edit</a>&nbsp;
+                                            <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars( $user['last_name'] . ' ' . $user['first_name']) ?>?')" title="Delete">Delete</a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
+
             </div>
 
         </main>

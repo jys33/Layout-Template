@@ -1,25 +1,55 @@
 <?php
-// Notificar todos los errores de PHP (ver el registro de cambios)
-// display errors, warnings, and notices
-ini_set("display_errors", true);
-error_reporting(E_ALL);
+final class Index {
+    private static $CLASSES = [
+        'Config' => '/config/Config.php',
+        'Db' => '/db/Db.php'
+    ];
+
+    public function init() {
+        // Notificar todos los errores de PHP (ver el registro de cambios)
+        // display errors, warnings, and notices
+        ini_set("display_errors", true);
+        error_reporting(E_ALL);
+        mb_internal_encoding('UTF-8');
+        spl_autoload_register([$this, 'loadClass']);
+
+        session_start();
+    }
+
+    public function loadClass($name) {
+        if (!array_key_exists($name, self::$CLASSES)) {
+            die('Class "' . $name . '" not found.');
+        }
+        require_once __DIR__ . self::$CLASSES[$name];
+    }
+}
+
+$index = new Index();
+$index->init();
+
+Config::setDirectory('section');
+$users = Db::getInstance()->query('SELECT * FROM user;');
+// echo  '<pre>';
+// print_r($users);
+// echo  '</pre>';
+
 
 $data = [
 	[
-        'lastname' => 'Doe',
-	    'firstname' => 'John',
+        'apellido' => 'Doe',
+	    'nombre' => 'John',
 	    'email' => 'johndoe@yahoo.com',
         'password' => 'm%r_JZLGjLdd~aO'
 	],
 	[
-        'lastname' => 'Paterson',
-	    'firstname' => 'Patrick ',
+        'apellido' => 'Paterson',
+	    'nombre' => 'Patrick ',
 	    'email' => 'ejemplo@yahoo.com',
         'password' => 'twEZR+LPO+6BiRw'
 	],
 	[
-        'lastname' => 'Benites',
-	    'firstname' => 'Sandra',
+        'apellido' => 'Benites',
+	    'nombre' => 'Sandra',
 	    'email' => 'sandra.benites@gmail.com',
         'password' => 't${}WQvmO4REdCp'
 	]
@@ -53,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
 	    <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-    	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff4ed;">
             <div class="container">
                 <a class="navbar-brand" href="#">Layout Template</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,54 +131,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     			<section>
     				<div class="row align-items-center">
     					<div class="col-md-5 mb-3">
-    						<h2 class="mb-4">Sign Up</h2>
+    						<h2 class="mb-4">Registrar</h2>
     						<form class="myForm" id="registration" method="POST">
-    							<div class="form-row">
-    							    <div class="form-group col-md-6">
-    							        <label for="lastname">Last Name</label>
-    							        <input class="form-control form-control-lg" type="text" name="lastname" id="lastName" onfocusout="" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							    <div class="form-group col-md-6">
-    							        <label for="firstname">First Name</label>
-    							        <input class="form-control form-control-lg" type="text" name="firstname" id="firstName" />
-    							        <div class="invalid-feedback"></div>
-    							    </div>
-    							</div>
     							<div class="form-row">
     							    <div class="form-group col-md-12">
     							        <label for="email">Email</label>
-    							        <input class="form-control form-control-lg" type="email" name="email" id="email" />
+    							        <input autocomplete="off" class="form-control" type="email" name="email" id="email" maxlength="50" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							</div>
     							<div class="form-row">
     							    <div class="form-group col-md-6">
-    							        <label for="password">Password</label>
-    							        <input class="form-control form-control-lg" type="password" name="password" id="password" />
+    							        <label for="lastname">Apellido</label>
+    							        <input autocomplete="off" class="form-control" type="text" name="apellido" id="lastName" maxlength="50" onkeypress="return allow(event, 'car')"/>
     							        <div class="invalid-feedback"></div>
     							    </div>
     							    <div class="form-group col-md-6">
-    							        <label for="confirmPassword">Confirm Password</label>
-    							        <input class="form-control form-control-lg" type="password" name="confirmPassword" id="confirmPassword" />
+    							        <label for="firstname">Nombre</label>
+    							        <input autocomplete="off" class="form-control" type="text" name="nombre" id="firstName" maxlength="50" onkeypress="return allow(event, 'car')" />
+    							        <div class="invalid-feedback"></div>
+    							    </div>
+    							</div>
+    							<div class="form-row">
+    							    <div class="form-group col-md-6">
+    							        <label for="password">Contraseña</label>
+    							        <input autocomplete="off" class="form-control" type="password" name="password" id="password" maxlength="50" />
+    							        <div class="invalid-feedback"></div>
+    							    </div>
+    							    <div class="form-group col-md-6">
+    							        <label for="confirmPassword">Confirmar Contraseña</label>
+    							        <input autocomplete="off" class="form-control" type="password" name="confirmPassword" id="confirmPassword" maxlength="50" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							</div>
                                 <textarea name="hidden" rows="3" style="display: none;">
-                                    <?php
-                                    foreach ($data as $key => $values) {
-                                        foreach ($values as $key => $value) {
-                                            echo $value;
-                                        }
-                                    }
-                                    ?>
                                 </textarea>
-    							<button type="submit" class="btn btn-success btn-lg px-5">Save</button>
+    							<button type="submit" class="btn btn-success btn-lg px-5">Enviar <span style="font-size: 14px;">&#10095;</span></button>
     						</form>
     					</div>
     					<div class="col-md-7 mb-3">
     						<div class="mb-4">
-    							<h2><span id="translate">Registered Users</span> <button class="btn btn-primary float-right translate-btn">Translate</button></h2>
+    							<h2><span id="translate">Registered Users</span> <button class="btn btn-outline-primary float-right translate-btn">Translate</button></h2>
     						</div>
                             <div class="table-responsive">
                             	<table class="table table-striped table-sm">
@@ -166,13 +189,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
                             			<?php foreach ($data as $user): ?>
                             				<tr>
                             					<td><?= $id++ ?></td>
-                            					<td><?= $user['lastname'] ?></td>
-                            					<td><?= $user['firstname'] ?></td>
+                            					<td><?= $user['apellido'] ?></td>
+                            					<td><?= $user['nombre'] ?></td>
                             					<td><?= $user['email'] ?></td>
                                                 <td><?= $user['password'] ?></td>
                                                 <td>
                                                     <a href="" class="" title="Edit">Edit</a>&nbsp;
-                                                    <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars( $user['lastname'] . ' ' . $user['firstname']) ?>?')" title="Delete">Delete</a>
+                                                    <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars( $user['apellido'] . ' ' . $user['nombre']) ?>?')" title="Delete">Delete</a>
                                                 </td>
                             				</tr>
                             			<?php endforeach ?>
@@ -188,30 +211,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
 
     					<div class="col-md-5 mx-auto">
     						<div class="bg-light p-4 rounded">
-    							<h2 class="mb-4">Sign In</h2>
-    							<form onsubmit="return false;">
+    							<h2 class="mb-4">Iniciar Sesión</h2>
+    							<form class="myForm" onsubmit="return false;">
     								<div class="form-group">
     									<label for="email">Email</label>
-    									<input autocomplete="off" maxlength="50" name="email" type="email" class="rounded-0 form-control form-control-lg" value="example@mail.com" />
+    									<input autocomplete="off" maxlength="50" name="email" type="email" class="rounded-0 form-control" value="example@mail.com" autofocus />
     									<div class="invalid-feedback"></div>
     								</div>
     								<div class="form-group">
     									<label for="password">Contraseña</label>
-    									<a class="float-right" href="/password_reset.php" style="font-size:14px;margin-top: .2rem;">¿Olvidó su contraseña?</a>
     									<div class="input-group">
-    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control form-control-lg" id="Password" value="hiddenpassword">
+    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control" id="Password" value="hiddenpassword">
     									    <div class="input-group-append">
-    									        <span class="input-group-text" id="show-password" style="font-size: 0.75rem; line-height: 2.2;">Mostrar</span>
+    									        <span class="input-group-text" id="show-password" style="font-size: 0.75rem; line-height: 2.9;background-color: white;/*border:none;border-bottom: 1px solid #9e9e9e;*/">Mostrar</span>
     									    </div>
     									    <div class="invalid-feedback"></div>
     									</div>
     								</div>
-    								<button type="submit" class="btn btn-success btn-lg px-5">Save</button>
+									<div class="form-group form-check my-4">
+									    <a class="float-right" href="/password_reset.php" style="font-size:14px;margin-top: .2rem;">¿Olvidó su contraseña?</a>
+										<input type="checkbox" class="form-check-input" id="remember_me">
+										<label class="form-check-label font-weight-normal" for="remember_me">Recordarme</label>
+									</div>
+    								<button type="submit" class="btn btn-success btn-lg px-5">Ingresar <span style="font-size: 14px;">&#10095;</span></button>
     							</form>
     						</div>
     					</div>
-                        <div class="col-md-5 mx-auto" style="font-size: 1.25rem;">
-                            <img src="img/abstract.svg" style="width: 100%;opacity: 0.85;">
+                        <div class="col-md-5 mx-auto" style="font-size: 1.25rem;color: #030f28;">
+                            <img src="img/abstract.svg">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
     				</div>

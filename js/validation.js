@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if(field.name == "password" || field.name == "contraseña"){
                 setInvalid(field, `Crea una contraseña.`);
             } else {
-                setInvalid(field, `Por favor dinos tu ${field.name}.`);
+                setInvalid(field, `Por favor, dinos tu ${field.name}.`);
             }
             return true;
         } else {
