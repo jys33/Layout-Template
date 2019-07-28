@@ -1,104 +1,166 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const firstName = document.querySelector("#firstName");
-    const lastName = document.querySelector("#lastName");
-    const email = document.querySelector("#email");
-    const password = document.querySelector("#password");
-    const confirmPassword = document.querySelector('#confirmPassword');
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.myForm');
+    const email = form.email;
+    const usuario = form.usuario;
+    const nombre = form.nombre;
+    const apellido = form.apellido;
+    const password = form.password;
+    const confirm_password = form.confirm_password;
 
-    const form = document.querySelector(".myForm");
+    nombre.onpaste = evt => false;
+    nombre.ondragover = evt => false;
+    apellido.onpaste = evt => false;
+    apellido.ondragover = evt => false;
 
-    function validatePassword() {
-        // Empty check
-        if (checkIfEmpty(password)) return;
-        // Must of in certain length
-        if (!meetLength(password, 8, 50)) return;
-        // check password against our character set
-        // 1- a
-        // 2- a 1
-        // 3- A a 1
-        // 4- A a 1 @
-        if (!containsCharacters(password, 4)) return;
-        // Devolvemos el tipo de campo
-        password.name = "password";
+    email.addEventListener('focusout', checkEmail);
+    usuario.addEventListener('focusout', checkUsername);
+    nombre.addEventListener('focusout', checkFirstName);
+    apellido.addEventListener('focusout', checkLastName);
+    password.addEventListener('focusout', checkPassword);
+    confirm_password.addEventListener('focusout', checkConfirmPassword);
+
+    form.onsubmit = (evt) => {
+        if (
+            !(
+                checkEmail() &&
+                checkUsername() &&
+                checkFirstName() &&
+                checkLastName() &&
+                checkPassword() &&
+                checkConfirmPassword()
+                )
+            ) {
+            inputFocus();
+            evt.preventDefault();
+        }
+    }
+
+    function inputFocus(){
+        let length = form.elements.length;
+        for(let i = 0; i < length; i++){
+            if (form.elements[i].classList.contains('is-invalid')) {
+                form.elements[i].focus();
+                break;
+            }
+        }
+    }
+
+    function checkEmail(){
+        if(checkIsEmpty(email)) return;
+        if(!containsCharacters(email,5)) return;
         return true;
     }
-    function validateConfirmPassword() {
+
+    function checkUsername(){
+        if(checkIsEmpty(usuario)) return;
+        if (!meetLength(usuario, 2, 20)) return;
+        if (!containsCharacters(usuario, 6)) return;
+        return true;
+    }
+
+    function checkFirstName() {
+        if(checkIsEmpty(nombre)) return;
+        if (!lettersOnly(nombre)) return;
+        if(!meetLength(nombre, 3, 32)) return;
+        return true;
+    }
+    
+    function checkLastName() {
+        if(checkIsEmpty(apellido)) return;
+        if (!lettersOnly(apellido)) return;
+        if(!meetLength(apellido, 3, 32)) return;
+        return true;
+    }
+
+    function checkPassword(){
+        if(checkIsEmpty(password)) return;
+        if (!meetLength(password, 8, 32)) return;
+        if (!containsCharacters(password, 4)) return;
+        return true;
+    }
+
+    function checkConfirmPassword(){
         if (!password.classList.contains('is-valid')) {
-            setInvalid(confirmPassword, 'La contraseña debe ser válida.');
+            setInvalid(confirm_password, 'La contraseña debe ser válida.');
             return;
         }
         // If they match
-        if (password.value !== confirmPassword.value) {
-            setInvalid(confirmPassword, 'Las contraseñas no coinciden.');
+        if (password.value !== confirm_password.value) {
+            setInvalid(confirm_password, 'Las contraseñas no coinciden.');
             return;
         } else {
-            setValid(confirmPassword);
+            setValid(confirm_password,'');
         }
         return true;
     }
-    function validateFirstname(){
-        if (checkIfEmpty(firstName)) return;
-        if (!checkIfOnlyLetters(firstName)) return;
-        if (!meetLength(firstName, 3, 50)) return;
-        return true;
-    }
-    function validateLastname(){
-        if (checkIfEmpty(lastName)) return;
-        if (!checkIfOnlyLetters(lastName)) return;
-        if (!meetLength(lastName, 3, 50)) return;
-        return true;
-    }
-    function validateEmail() {
-        if (checkIfEmpty(email)) return;
-        if (!containsCharacters(email, 5)) return;
-        return true;
-    }
-    // Utility functions
-    function checkIfEmpty(field) {
+
+    // Funciones Útiles
+    function checkIsEmpty(field){
         if (isEmpty(field.value.trim())) {
-            // set field invalid
-            if(field.name == "password" || field.name == "contraseña"){
-                setInvalid(field, `Crea una contraseña.`);
+            if (field.type == 'password') {
+                setInvalid(field,'Crea una contraseña.');
             } else {
-                setInvalid(field, `Por favor, dinos tu ${field.name}.`);
+                setInvalid(field,`El ${field.name} es requerido.`);
             }
             return true;
         } else {
-            // set field valid
-            setValid(field);
+            setValid(field,'');
             return false;
         }
     }
-    function checkIfOnlyLetters(field) {
-        if (/^[a-zA-ZñÑ ]+$/.test(field.value)) {
-            setValid(field);
+
+    function meetLength(field, min, max){
+        if (field.value.length >= min && field.value.length <= max) {
+            setValid(field,'');
+            return true;
+        } else if(field.value.length < min){//'This name is too short (at least 3 chars.)'
+            if (field.type == 'password') {
+                setInvalid(field, 'La contraseña debe incluir al menos ' + min + ' caracteres.');
+            } else {
+                setInvalid(field, `El ${field.name} debe incluir al menos ` + min + ` caracteres.`);
+            }
+            return false;
+        } else{//This name is too long (at most 32 chars.)
+            if (field.type == 'password') {
+                setInvalid(field, 'La contraseña debe incluir como máximo ' + max + ' caracteres.');
+            } else {
+                setInvalid(field, `El ${field.name} debe incluir como máximo ` + max + ` caracteres.`);
+            }
+            return false;
+        }
+    }
+
+    function lettersOnly(field){
+        if (/^[a-zA-ZáéíóúÁÉÍÓÚÑñÜü ]+$/.test(field.value)) {
+            setValid(field, '');
             return true;
         } else {
             setInvalid(field, `El ${field.name} no puede incluir símbolos, números o signos de puntuación.`);
             return false;
         }
     }
-    function meetLength(field, minLength, maxLength) {
-        if (field.name == "password") {
-            field.name = "contraseña";
-        }
-        if (field.value.length >= minLength && field.value.length < maxLength) {
-            setValid(field);
-            return true;
-        } else if (field.value.length < minLength) {
-            setInvalid(
-                field,
-                `El campo ${field.name} debe incluir al menos ${minLength} caracteres de longitud.`
-            );
-            return false;
-        } else {
-            setInvalid(
-                field,
-                `El campo ${field.name} debe incluir como máximo ${maxLength} caracteres de longitud.`
-            );
-            return false;
-        }
+
+    function numbersOnly(evt) {
+        return evt.charCode === 0 || /\d/.test(String.fromCharCode(evt.charCode));
     }
+
+    function isEmpty(value){
+        if (value == null || value.length == 0 || /^\s+$/.test(value)) return true;
+        return false;
+    }
+
+    function setInvalid(field, message){
+        field.classList.add('is-invalid');
+        field.classList.remove('is-valid');
+        field.nextElementSibling.innerHTML = message;
+    }
+
+    function setValid(field, message){
+        field.classList.add('is-valid');
+        field.classList.remove('is-invalid');
+        field.nextElementSibling.innerHTML = message;
+    }
+    
     function containsCharacters(field, code) {
         let regEx;
         switch (code) {
@@ -134,6 +196,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Email pattern
                 regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return matchWithRegEx(regEx, field, 'El email no es válido.');
+            case 6:
+                // pattern
+                regEx = /^[a-zA-Z@]+\d*$/;
+                return matchWithRegEx(
+                    regEx,
+                    field,
+                    'Los nombres de usuario no pueden contener espacios y no deben empezar por un número o subrayado.');
             default:
                 return false;
         }
@@ -141,60 +210,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function matchWithRegEx(regEx, field, message) {
         if (field.value.match(regEx)) {
-            setValid(field);
+            setValid(field, '');
             return true;
         } else {
             setInvalid(field, message);
             return false;
         }
     }
-    function isEmpty(value) {
-        if (value == null || value.length == 0 || /^\s+$/.test(value)) return true;
-        return false;
-    }
-    function setInvalid(field, message) {
-        field.classList.remove('is-valid');
-        field.classList.add("is-invalid");
-        field.nextElementSibling.innerHTML = message;
-    }
-    function setValid(field) {
-        field.classList.remove('is-invalid');
-        field.classList.add('is-valid');
-        field.nextElementSibling.innerHTML = '';
-    }
-    firstName.addEventListener("focusout", validateFirstname);
-    lastName.addEventListener("focusout", validateLastname);
-    firstName.onpaste = event => false;
-    lastName.onpaste = event => false;
-    firstName.ondragover = event => false;
-    lastName.ondragover = event => false;
-    email.addEventListener("focusout", validateEmail);
-    password.addEventListener("focusout", validatePassword);
-    confirmPassword.addEventListener("focusout", validateConfirmPassword);
-
-    confirmPassword.addEventListener("input", validateConfirmPassword);
     
-    // firstName.addEventListener("input", validateFirstname);
-    // lastName.addEventListener("input", validateLastname);
-    // email.addEventListener("input", validateEmail);
-    // password.addEventListener("input", validatePassword);
-    form.onsubmit = (e) => {
-        if(!(
-            validateEmail() && 
-            validateFirstname() && 
-            validateLastname() && 
-            validatePassword() &&
-            validateConfirmPassword())
-            ){
-            e.preventDefault();
-        }
-    }
 });
 
 function allow(elEvento, permitidos) {
     // Variables que definen los caracteres permitidos
-    var numeros = "0123456789";
-    var caracteres = " abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    var numeros = '0123456789';
+    var caracteres = ' abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
     var numeros_caracteres = numeros + caracteres;
     var teclas_especiales = [8, 37, 39, 46];
     // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha
@@ -230,7 +259,4 @@ function allow(elEvento, permitidos) {
     // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
     // o si es una tecla especial
     return permitidos.indexOf(caracter) != -1 || tecla_especial;
-}
-function numbersOnly(event) {
-    return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));
 }

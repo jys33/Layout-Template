@@ -1,38 +1,4 @@
 <?php
-final class Index {
-    private static $CLASSES = [
-        'Config' => '/config/Config.php',
-        'Db' => '/db/Db.php'
-    ];
-
-    public function init() {
-        // Notificar todos los errores de PHP (ver el registro de cambios)
-        // display errors, warnings, and notices
-        ini_set("display_errors", true);
-        error_reporting(E_ALL);
-        mb_internal_encoding('UTF-8');
-        spl_autoload_register([$this, 'loadClass']);
-
-        session_start();
-    }
-
-    public function loadClass($name) {
-        if (!array_key_exists($name, self::$CLASSES)) {
-            die('Class "' . $name . '" not found.');
-        }
-        require_once __DIR__ . self::$CLASSES[$name];
-    }
-}
-
-$index = new Index();
-$index->init();
-
-Config::setDirectory('section');
-$users = Db::getInstance()->query('SELECT * FROM user;');
-// echo  '<pre>';
-// print_r($users);
-// echo  '</pre>';
-
 
 $data = [
 	[
@@ -44,13 +10,13 @@ $data = [
 	[
         'apellido' => 'Paterson',
 	    'nombre' => 'Patrick ',
-	    'email' => 'ejemplo@yahoo.com',
+	    'email' => 'example@yahoo.com',
         'password' => 'twEZR+LPO+6BiRw'
 	],
 	[
-        'apellido' => 'Benites',
-	    'nombre' => 'Sandra',
-	    'email' => 'sandra.benites@gmail.com',
+        'apellido' => 'Braun',
+	    'nombre' => 'Jeff',
+	    'email' => 'jeff.braun@gmail.com',
         'password' => 't${}WQvmO4REdCp'
 	]
 ];
@@ -83,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
 	    <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-    	<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff4ed;">
+    	<nav class="navbar navbar-expand-lg navbar-light border-bottom shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="#">Layout Template</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,36 +102,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     							<div class="form-row">
     							    <div class="form-group col-md-12">
     							        <label for="email">Email</label>
-    							        <input autocomplete="off" class="form-control" type="email" name="email" id="email" maxlength="50" />
+    							        <input autocomplete="off" class="form-control" type="email" name="email" maxlength="50" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							</div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="usuario">Usuario</label>
+                                        <input class="form-control" type="text" name="usuario" value="" maxlength="20" autocomplete="off"/>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
     							<div class="form-row">
     							    <div class="form-group col-md-6">
-    							        <label for="lastname">Apellido</label>
-    							        <input autocomplete="off" class="form-control" type="text" name="apellido" id="lastName" maxlength="50" onkeypress="return allow(event, 'car')"/>
+    							        <label for="firstname">Nombre</label>
+    							        <input autocomplete="off" class="form-control" type="text" name="nombre" maxlength="50" onkeypress="return allow(event, 'car')" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							    <div class="form-group col-md-6">
-    							        <label for="firstname">Nombre</label>
-    							        <input autocomplete="off" class="form-control" type="text" name="nombre" id="firstName" maxlength="50" onkeypress="return allow(event, 'car')" />
+    							        <label for="lastname">Apellido</label>
+    							        <input autocomplete="off" class="form-control" type="text" name="apellido" maxlength="50" onkeypress="return allow(event, 'car')"/>
     							        <div class="invalid-feedback"></div>
     							    </div>
     							</div>
     							<div class="form-row">
     							    <div class="form-group col-md-6">
     							        <label for="password">Contraseña</label>
-    							        <input autocomplete="off" class="form-control" type="password" name="password" id="password" maxlength="50" />
+    							        <input autocomplete="off" class="form-control" type="password" name="password" maxlength="50" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							    <div class="form-group col-md-6">
-    							        <label for="confirmPassword">Confirmar Contraseña</label>
-    							        <input autocomplete="off" class="form-control" type="password" name="confirmPassword" id="confirmPassword" maxlength="50" />
+    							        <label for="confirm_password">Confirmar Contraseña</label>
+    							        <input autocomplete="off" class="form-control" type="password" name="confirm_password" maxlength="50" />
     							        <div class="invalid-feedback"></div>
     							    </div>
     							</div>
-                                <textarea name="hidden" rows="3" style="display: none;">
-                                </textarea>
     							<button type="submit" class="btn btn-success btn-lg px-5">Enviar <span style="font-size: 14px;">&#10095;</span></button>
     						</form>
     					</div>
@@ -221,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4){
     								<div class="form-group">
     									<label for="password">Contraseña</label>
     									<div class="input-group">
-    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control" id="Password" value="hiddenpassword">
+    									    <input autocomplete="off" maxlength="50" name="password" type="password" class="rounded-0 form-control" id="password" value="hiddenpassword">
     									    <div class="input-group-append">
     									        <span class="input-group-text" id="show-password" style="font-size: 0.75rem; line-height: 2.9;background-color: white;/*border:none;border-bottom: 1px solid #9e9e9e;*/">Mostrar</span>
     									    </div>

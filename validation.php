@@ -69,19 +69,28 @@ function checkEmailAddress($email) {
     return true;
 }
 
+function checkUsername($username){
+    if (!preg_match('/^[a-zA-Z@]+\d*$/', $username)) return false;
+    return true;
+}
+
 $data = [
     'nombre' => '',
     'apellido' => '',
     'email' => '',
+    'usuario' => '',
     'password' => '',
     'confirm_password' => '',
     /*Error*/
     'nombre_err' => '',
     'apellido_err' => '',
     'email_err' => '',
+    'usuario_err' => '',
     'password_err' => '',
     'confirm_password_err' => ''
 ];
+
+$flashes = [];
 
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
@@ -113,6 +122,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
             // Si existe el email
             if( count($result) != 0 ){
                 $data['email_err'] = 'Ese email ya está registrado. Prueba con otro.';
+            }
+        }
+    }
+
+    /**
+     * Validamos el nombre de usuario y comprobamos si no existe en la base de datos
+     */
+    if (isEmpty($_POST['usuario'])) {
+        $data['usuario_err'] = 'Por favor, crea un usuario.';
+    }
+    else
+    {
+        $data['usuario'] = $_POST['usuario'];
+        if (!checkUsername($data['usuario'])) {
+            $data['usuario_err'] = "Los nombres de usuario no pueden contener espacios y no deben empezar por un número o subrayado.";
+        }
+        else
+        {
+            if(!meetLength($data['usuario'], 2, 20)) {
+                $data['usuario_err'] = 'El nombre de usuario debe incluir entre 2 y 20 caracteres.';
+            }
+            // consultamos la tabla por el email
+            $result = Db::getInstance()->query('SELECT user_id FROM user WHERE user_name=?', $data['usuario']);
+
+            // Si existe el email
+            if( count($result) != 0 ){
+                $data['usuario_err'] = 'Ese usuario ya está registrado. Prueba con otro.';
             }
         }
     }
@@ -169,10 +205,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
         }
         else
         {
-            if(!isEmpty($_POST["confirmarPassword"]))
+            if(!isEmpty($_POST["confirm_password"]))
             {
                 // Comprobamos si las passwords son iguales
-                if($data['password'] !== $_POST['confirmarPassword']) {
+                if($data['password'] !== $_POST['confirm_password']) {
                     $data['confirm_password_err'] = 'Las contraseñas ingresadas no coinciden.';
                 }
             }
@@ -189,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
         empty( $data['apellido_err'] ) &&
         empty( $data['email_err'] ) &&
         empty( $data['password_err'] ) &&
+        empty( $data['usuario_err'] ) &&
         empty( $data['confirm_password_err'] )
     )
     {
@@ -200,25 +237,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 4)
         $dateTime = date('Y-m-d H:i:s');
 
         $q = 'INSERT INTO user (last_name, first_name, user_name, user_email, password, activation, created_on, last_modified_on) VALUES(?,?,?,?,?,?,?,?);';
-        $insert_result = Db::getInstance()->query($q, $data['apellido'], $data['nombre'], 'R.K.M', $data['email'], $password, $activationkey, $dateTime, $dateTime);
+        $insert_result = Db::getInstance()->query($q, $data['apellido'], $data['nombre'], $data['usuario'], $data['email'], $password, $activationkey, $dateTime, $dateTime);
 
-        // Si true => todo salio bien.
+        // Si true => todo salió bien.
         if ($insert_result) {
-            echo '<div class="alert alert-primary text-center" role="alert">El registro fue insertado correctamente.</div>';
+            $flashes[] = 'El registro fue insertado correctamente.';
         } else {
-            echo '<div class="alert alert-danger text-center" role="alert">El registro no fue realizado.</div>';
-            exit;
+            $flashes[] = 'El registro no fue realizado.';
         }
     }
 
 }
+
 extract($data);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
     	<!-- Required meta tags -->
     	<meta charset="utf-8">
+        <meta name="description" content="My first web page">
+        <meta name="keywords" content="HTML,CSS,PHP,JavaScript">
+        <meta name="author" content="?">
     	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     	<!-- Bootstrap CSS -->
@@ -229,54 +270,93 @@ extract($data);
         <link rel="stylesheet" type="text/css" href="css/material.css">
     </head>
     <body>
+        <nav class="navbar navbar-expand-md navbar-light border-bottom shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="/">App</a>
+                <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbar">
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                    <?php else: ?>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/register.php">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login.php">Log In</a></li>
+                    </ul>
+                    <?php endif ?>
+                </div>
+            </div>
+        </nav>
+        <?php if (count($flashes) > 0): ?>
+        <header>
+            <div class="alert alert-primary text-center" role="alert">
+                <?php foreach ($flashes as $flash) echo $flash; ?>
+            </div>
+        </header>
+        <?php endif ?>
         <main role="main">
             
-            <div class="container my-5">
+            <div class="container p-5">
 
                 <div class="row align-items-center">
-                    <div class="col-md-5">
+                    <div class="col-md-5 mx-auto">
                         <section style="/*width: 100%;max-width: 520px;padding: 15px;*/">
                             <h2 class="mb-4">Registro de usuario</h2>
                             <form class="myForm" method="POST">
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" id="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="50" autocomplete="off" placeholder=""/>
+                                    <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="32" autocomplete="off"/>
                                     <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="usuario">Usuario</label>
+                                    <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
+                                    <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="firstName">Nombre</label>
-                                        <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" id="firstName"  value="<?= htmlspecialchars( $nombre ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                                        <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" value="<?= htmlspecialchars( $nombre ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
                                         <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="lastName">Apellido</label>
-                                        <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" id="lastName" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="50" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                                        <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
                                         <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="password" class="mb-0">Contraseña</label>
                                     <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-                                    <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" value="" maxlength="50" aria-describedby="passwordHelpBlock"/>
+                                    <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" maxlength="32" aria-describedby="passwordHelpBlock"/>
                                     <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="confirmPassword">Confirmar contraseña</label>
-                                    <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirmarPassword" id="confirmPassword" value="" maxLength="50">
+                                    <label for="confirm_password">Confirmar contraseña</label>
+                                    <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirm_password" maxLength="32"/>
                                     <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-lg px-5 my-3">Enviar <span style="font-size: 14px">&#10095;</span></button>
                             </form>
                         </section>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6 mx-auto">
                         <img src="img/keyboard.jpg" style="width: 100%; border-radius: 6px; opacity: 0.85;">
                     </div>
                 </div>
 
-                <section class="mt-3">
+                <section class="p-5">
                     <?php $users = Db::getInstance()->query('SELECT * FROM user;'); ?>
+                    <h2 class="mb-4">Usuarios Registrados</h2>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm" style="font-size: .875rem;">
                             <thead>
@@ -299,7 +379,7 @@ extract($data);
                                         <td><?= $user['user_name'] ?></td>
                                         <td>
                                             <a href="" class="" title="Edit">Edit</a>&nbsp;
-                                            <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars( $user['last_name'] . ' ' . $user['first_name']) ?>?')" title="Delete">Delete</a>
+                                            <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars($user['last_name'] . ' ' . $user['first_name']) ?>?')" title="Delete">Delete</a>
                                         </td>
                                     </tr>
                                 <?php endforeach ?>

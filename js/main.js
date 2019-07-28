@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// Ejemplo 4: Show/Hide Password
 	let showPassword = document.querySelector('#show-password');
-	let input = document.getElementById("Password");
+	let input = document.getElementById("password");
 	function showHide() {
 	    if (input.type === "password") {
 	        input.type = "text";
