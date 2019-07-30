@@ -1,0 +1,39 @@
+<section style="width: 100%;max-width: 500px; margin: auto">
+    <h2 class="mb-4">Registro de usuario</h2>
+    <form class="myForm" action="register.php" method="POST" name="register">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="32" autocomplete="off"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
+        </div>
+        <div class="form-group">
+            <label for="usuario">Usuario</label>
+            <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="firstName">Nombre</label>
+                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" value="<?= htmlspecialchars( $nombre ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="lastName">Apellido</label>
+                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <small id="passwordHelpBlock" class="form-text text-muted mb-1">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
+            <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" maxlength="32" aria-describedby="passwordHelpBlock"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirmar contraseña</label>
+            <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirm_password" maxLength="32"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
+        </div>
+        <button type="submit" class="btn btn-success btn-lg px-5 my-4" name="send_btn" disabled="disabled">Enviar <span class="fs-14">&#10095;</span></button>
+    </form>
+</section>

@@ -14,3 +14,5 @@ label{font-size: .8rem;margin-bottom: 0;}
 .form-control.is-invalid:focus, .form-control.is-valid:focus{box-shadow: none;}
 /*.form-row{margin-bottom: 1.25rem;}*/
 .form-control.is-valid,.form-control.is-invalid{background-image: none;padding-right: 0;}
+.fs-14{font-size: 0.875rem;}
+.showhidden{font-size: 0.75rem; line-height: 2.9;background-color: white;border:none;border-bottom: 1px solid #9e9e9e;}

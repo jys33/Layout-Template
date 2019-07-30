@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nombre.addEventListener('focusout', checkFirstName);
     apellido.addEventListener('focusout', checkLastName);
     password.addEventListener('focusout', checkPassword);
-    confirm_password.addEventListener('focusout', checkConfirmPassword);
+    confirm_password.addEventListener('input', checkConfirmPassword);
 
     form.onsubmit = (evt) => {
         if (
@@ -80,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkConfirmPassword(){
+        allowSubmission();
         if (!password.classList.contains('is-valid')) {
             setInvalid(confirm_password, 'La contraseña debe ser válida.');
             return;
@@ -92,6 +93,14 @@ document.addEventListener('DOMContentLoaded', () => {
             setValid(confirm_password,'');
         }
         return true;
+    }
+
+    function allowSubmission() {
+        if (canSubmit(password, confirm_password)) {
+            form.send_btn.removeAttribute('disabled');
+        } else {
+            form.send_btn.setAttribute("disabled", "disabled");
+        }
     }
 
     // Funciones Útiles
@@ -107,6 +116,10 @@ document.addEventListener('DOMContentLoaded', () => {
             setValid(field,'');
             return false;
         }
+    }
+
+    function canSubmit(pass1, pass2){
+        return (pass1.value == pass2.value);
     }
 
     function meetLength(field, min, max){

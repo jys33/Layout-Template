@@ -1,20 +1,5 @@
 /*alert*/
-.alert {border-radius: 0;}
-
-/*button*/
-.btn:focus, .form-control.is-invalid:focus,.form-control.is-valid:focus{box-shadow: none!important;}
-
-/*form*/
-/*label {font-weight: 600;}*/
-.form-control:focus {box-shadow: none;border-color: #ced4da;}
-.form-control, .btn-lg {height: auto;padding: .625rem;} /*10px*/
-.btn-lg {font-size: 1rem;}
-.required {color: #dc3545}
-
-
-
-/*jumbotron*/
-.jumbotron{background-color: transparent;}
+.alert {border-radius: unset;}
 
 /*table*/
 table {font-size: .875rem;}/*14px*/
@@ -84,13 +69,3 @@ table {font-size: .875rem;}/*14px*/
     }
 }
 /*END BACK TO TOP*/
-.invalid-feedback{
-    background-color: #e2e8f0;
-    color: #718096;
-    border-radius: .25rem;
-    padding: .375rem .75rem;
-}
-.form-control.is-invalid,
-.form-control.is-invalid:focus,
-.form-control.is-valid,
-.form-control.is-valid:focus{border-color: #e2e8f0}
