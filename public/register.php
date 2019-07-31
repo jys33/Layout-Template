@@ -2,6 +2,10 @@
 
 require("../includes/config.php");
 
+if (array_key_exists('user_id', $_SESSION)) {
+    redirect('index.php');
+}
+
 $data = [
     'title' => 'Registrar usuario',
     'nombre' => '',

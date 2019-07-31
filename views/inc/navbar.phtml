@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-md navbar-light border-bottom shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="#">PhpApp</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a></li>
+            </ul>
+            <?php if (!isset($_SESSION['user_id'])): ?>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="login.php">Ingresar</a></li>
+                <li class="nav-item"><a class="nav-link" href="register.php">Registrarse</a></li>
+            </ul>
+            <?php else: ?>
+            <ul class="navbar-nav ml-auto">
+                <span class="navbar-text mr-md-2">Bienvenido &nbsp;<span class=""><?= htmlspecialchars($_SESSION['user_name']) ?>!</span></span>
+                <li class="nav-item"><a class="nav-link" href="logout.php">Salir</a></li>
+            </ul>
+            <?php endif ?>
+        </div>
+    </div>
+</nav>

@@ -24,7 +24,7 @@
                         <td><?= $user['created_on'] ?></td>
                         <td>
                             <a href="" class="" title="Edit">Edit</a>&nbsp;
-                            <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a ' + '<?= htmlspecialchars($user['last_name'] . ' ' . $user['first_name']) ?>?')" title="Delete">Delete</a>
+                            <a href="" class="" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar a <?= htmlspecialchars($user['last_name'] . ' ' . $user['first_name']) ?>?')" title="Delete">Delete</a>
                         </td>
                     </tr>
                 <?php endforeach ?>

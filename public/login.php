@@ -2,24 +2,18 @@
 
 require("../includes/config.php");
 
-$pass = [
-	[
-        'password' => 'm%r_JZLGjLdd~aO'
-	],
-	[
-        'password' => 'twEZR+LPO+6BiRw'
-	],
-	[
-        'password' => 't${}WQvmO4REdCp'
-	]
-];
+if (array_key_exists('user_id', $_SESSION)) {
+    redirect('index.php');
+}
+
+$passwords = ['m%r_JZLGjLdd~aO', 'twEZR+LPO+6BiRw', 't${}WQvmO4REdCp'];
 
 $data = [
 	'title' => 'Iniciar sesión',
-	'login' => '',
+	'email' => '',
 	'password' => '',
 	// Error
-	'login_err' => '',
+	'email_err' => '',
 	'password_err' => ''
 ];
 
@@ -34,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
     /**
      * Comprobamos que el email no este vacío
      */
-    if (!isEmpty($_POST['login'])) {
-    	$data['login'] = $_POST["login"];
-    	// $data['login'] = filter_var($_POST["login"], FILTER_SANITIZE_EMAIL);
+    if (!isEmpty($_POST['email'])) {
+    	$data['email'] = $_POST["email"];
+    	// $data['email'] = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     } else {
-    	$data['login_err'] = 'Un correo electrónico es necesario para iniciar sesión.';
+    	$data['email_err'] = 'Un email es necesario para iniciar sesión.';
     }
 
     /**
@@ -53,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
     /**
      * Si todo esta ok
      */
-    if (empty($data['login_err']) && empty($data['password_err'])) {
+    if (empty($data['email_err']) && empty($data['password_err'])) {
         // 
-    	$rows = query("SELECT * FROM user WHERE user_email=? AND activation='activated'", $data["login"]);
+    	$rows = query("SELECT * FROM user WHERE user_email=? AND activation='activated'", $data["email"]);
     	// Si encontramos al usuario
     	if (count($rows) == 1) {
     		$user = $rows[0];

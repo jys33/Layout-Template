@@ -6,6 +6,8 @@ table {font-size: .875rem;}/*14px*/
 
 #show-password {display: none;cursor: pointer;}
 
+.required{color: red;font-weight: bold;}
+
 /*BACK TO TOP*/
 .cd-top {
     display: inline-block;
