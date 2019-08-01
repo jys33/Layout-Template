@@ -20,12 +20,9 @@
         <link rel="stylesheet" type="text/css" href="css/styles.css">
     </head>
     <body>
-        <?php require_once 'navbar.phtml'; ?>
-    	<header>
-            <?php
-            flash('flash_success');
-            flash('flash_error');
-            ?>
-    	</header>
-
-    	<main role="main" class="container my-5">
+        <?php
+            require_once 'navbar.phtml';
+            flash('success');
+            flash('error');
+        ?>
+    	<main role="main" class="container p-5">

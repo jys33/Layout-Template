@@ -6,4 +6,4 @@ require("../includes/config.php");
 logout();
 
 // redirect user
-redirect('login.php');
+redirect('index.php');

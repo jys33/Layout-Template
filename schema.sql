@@ -1,4 +1,7 @@
 CREATE DATABASE app DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS forgot_password;
 
 USE app;
 
@@ -17,8 +20,15 @@ CREATE TABLE user (
     UNIQUE KEY user_name_unique (user_name)
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
 
-INSERT INTO user (user_id, last_name, first_name, user_name, user_email, password, activation, created_on, last_modified_on) VALUES
-(NULL, 'John', 'Doe', 'johndoe', 'johndoe@gmail.com', 'Abc123456/*', '139224bed64ea04b31ecc10ef84771a4' , NOW(), NOW());
+CREATE TABLE post (
+	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	author_id INT UNSIGNED NOT NULL,
+	created_on INT(10) NOT NULL,
+	last_modified_on DATETIME NOT NULL,
+	title VARCHAR(255) NOT NULL,
+	body TEXT NOT NULL,
+	FOREIGN KEY (author_id) REFERENCES user (user_id)
+) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE forgot_password (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +36,6 @@ CREATE TABLE forgot_password (
 	reset_key CHAR(32) NOT NULL,
 	time INT(11) NOT NULL,
 	status VARCHAR(7) NOT NULL,
-	created DATETIME NOT NULL, 
+	created_on DATETIME NOT NULL, 
 	modified DATETIME NOT NULL
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;

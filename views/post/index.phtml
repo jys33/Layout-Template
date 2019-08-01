@@ -1,0 +1,39 @@
+<section class="content">
+    <header class="mb-4">
+        <h1 class="text-primary">Post</h1>
+        <?php if (isset($_SESSION['user_id'])): ?>
+        <a href="post/create.php" class="btn btn-primary btn-sm mb-2">Nuevo</a>
+        <?php endif ?>
+    </header>
+    <?php foreach ($posts as $post): ?>
+        <div class="row">
+            <div class="col-md-10">
+                <h2 class=""><?= $post['title']; ?></h2>
+            </div>
+            <div class="col-md-2">
+                <?php
+                $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+                if($user == $post['author_id']): ?>  
+                <div class="float-right">
+                    <a href="/post/update/<?= $post['id'] ?>" class="btn btn-success btn-sm" title="Editar">Editar</a>&nbsp;
+                    <form action="/post/delete/<?= $post['id'] ?>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar">Eliminar</button>
+                    </form>
+                </div>
+                <?php endif ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p><?= nl2br($post['body']); ?></p>
+                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' el ' . strftime('%A, %e de %B de %Y %H:%M:%S', $post['created_on']) ?></span>
+            </div>
+        </div>
+        <hr>
+    <?php endforeach ?>
+</section>
+
+<style type="text/css">
+    .content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
+    .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0;}
+</style>

@@ -48,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
         else
         {
             // consultamos la tabla por el email
-            $result = query('SELECT user_id FROM user WHERE user_email=?', $data['email']);
+            $rows = query('SELECT user_id FROM user WHERE user_email=?', $data['email']);
 
             // Si existe el email
-            if( count($result) != 0 ){
-                $data['email_err'] = 'Ese email ya está registrado. Prueba con otro.';
+            if( count($rows) != 0 ){
+                $data['email_err'] = 'El email "'. $data['email'] . '" ya está registrado. Prueba con otro.';
             }
         }
     }
@@ -75,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
                 $data['usuario_err'] = 'El nombre de usuario debe incluir entre 2 y 20 caracteres.';
             }
             // consultamos la tabla por el email
-            $result = query('SELECT user_id FROM user WHERE user_name=?', $data['usuario']);
+            $rows = query('SELECT user_id FROM user WHERE user_name=?', $data['usuario']);
 
             // Si existe el email
-            if( count($result) != 0 ){
-                $data['usuario_err'] = 'Ese usuario ya está registrado. Prueba con otro.';
+            if( count($rows) != 0 ){
+                $data['usuario_err'] = 'El usuario "' . $data['usuario'] . '" ya está registrado. Prueba con otro.';
             }
         }
     }
@@ -172,11 +172,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
 
         // Si true => todo salió bien.
         if ($insert_result) {
-            flash('flash_success', 'El registro fue realizado correctamente.');
+            flash('success', 'El registro fue realizado correctamente.');
             redirect("login.php");
-        } else {
-            flash('flash_error', 'El registro no fue realizado.', 'danger');
         }
+        
+        flash('error', 'El registro no fue realizado.', 'danger');
     }
 }
 

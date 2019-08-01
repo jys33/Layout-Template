@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 0){
         else
         {
             // consultamos la tabla por el email
-            $result = query('SELECT user_id FROM user WHERE user_email=?', $data['email']);
+            $rows = query('SELECT user_id FROM user WHERE user_email=?', $data['email']);
 
-            // Si existe el email
-            if( count($result) == 0 ){
-                $data['email_err'] = 'No encontramos ese email, lo sentimos.';
+            // Si no existe el email
+            if( count($rows) == 0 ){
+                $data['email_err'] = 'Lo sentimos, no encontramos ese email.';
             }
         }
     }
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 0){
     	// 	}
     	// }
 
-    	// flash('flash_error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
+    	// flash('error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
     }
 }
 

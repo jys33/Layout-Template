@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             apellido.addEventListener('focusout', checkLastName);
             password.addEventListener('focusout', checkPassword);
             confirm_password.addEventListener('focusout', checkConfirmPassword);
+            confirm_password.addEventListener('input', checkConfirmPassword);
 
             form.onsubmit = (evt) => {
                 if (

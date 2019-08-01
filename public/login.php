@@ -58,11 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
     			$_SESSION["user_id"] = $user["user_id"];
     			$_SESSION["user_name"] = $user["user_name"];
     			// redirect to portfolio
-    			redirect("index.php");
+                redirect("index.php");
     		}
     	}
 
-    	flash('flash_error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
+    	flash('error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
     }
 }
 
