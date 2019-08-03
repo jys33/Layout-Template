@@ -6,8 +6,6 @@ if (array_key_exists('user_id', $_SESSION)) {
     redirect('index.php');
 }
 
-$passwords = ['m%r_JZLGjLdd~aO', 'twEZR+LPO+6BiRw', 't${}WQvmO4REdCp'];
-
 $data = [
 	'title' => 'Iniciar sesión',
 	'email' => '',
