@@ -13,4 +13,4 @@ define("USERNAME", "root");
 define("PASSWORD", "");
 
 // Site URL (base for all redirections):
-define('BASE_URL', 'http://phpapp');
+define('BASE_URL', 'https://edu.offyoucode.co.uk');

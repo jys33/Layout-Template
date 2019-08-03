@@ -24,7 +24,7 @@ $data = [
 ];
 
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuario'], $_POST['nombre'], $_POST['apellido'], $_POST['password'], $_POST['confirm_password']) )
 {
     // Sanitizamos el array POST
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -167,11 +167,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
         $dateTime = date('Y-m-d H:i:s');
 
         $q = 'INSERT INTO user (last_name, first_name, user_name, user_email, password, activation, created_on, last_modified_on) VALUES(?,?,?,?,?,?,?,?);';
-        $insert_result = query($q, $data['apellido'], $data['nombre'], $data['usuario'], $data['email'], $password, $activationkey, $dateTime, $dateTime);
+        $insert_result = query($q, $data['apellido'], $data['nombre'], $data['usuario'], $data['email'], $password, 'activated', $dateTime, $dateTime);
 
         // Si true => todo salió bien.
         if ($insert_result) {
-            flash('success', 'El registro fue realizado correctamente.');
+            flash('success', 'Guardado correctamente, ahora puedes loguearte.');
             redirect("login.php");
         }
         

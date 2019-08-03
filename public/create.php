@@ -16,7 +16,7 @@ $data = [
 ];
 
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1)
+if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['descripcion']) )
 {
 	// Sanitizamos el array POST
 	$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1)
 		$insert_result = query($q, $data['titulo'], $data['descripcion'], $_SESSION['user_id'], $time, $dateTime);
 		// Si true => todo salió bien.
 		if ($insert_result) {
-		    flash('success', 'El registro fue realizado correctamente.');
+		    flash('success', 'Guardado correctamente.');
 		    redirect("post.php");
 		}
 		

@@ -18,7 +18,7 @@ $data = [
 ];
 
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['password'])){
     // echo '<pre>';
     // print_r($_POST);
     // echo '</pre>';
@@ -29,19 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
      * Comprobamos que el email no este vacío
      */
     if (!isEmpty($_POST['email'])) {
-    	$data['email'] = $_POST["email"];
-    	// $data['email'] = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
+        $data['email'] = $_POST["email"];
+        // $data['email'] = filter_var($_POST["email"], FILTER_SANITIZE_EMAIL);
     } else {
-    	$data['email_err'] = 'Un email es necesario para iniciar sesión.';
+        $data['email_err'] = 'Un email es necesario para iniciar sesión.';
     }
 
     /**
      * Comprobamos que la password no este vacía
      */
     if (!isEmpty($_POST['password'])) {
-    	$data['password'] = $_POST["password"];
+        $data['password'] = $_POST["password"];
     } else {
-    	$data['password_err'] = 'Se requiere una contraseña para iniciar sesión.';
+        $data['password_err'] = 'Se requiere una contraseña para iniciar sesión.';
     }
 
     /**
@@ -62,7 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
     		}
     	}
 
-    	flash('error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
+    	flash('error', 'El usuario o la contraseña ingresada es incorrecta.', 'danger');
+        //flash('error', 'El usuario o la contraseña ingresada es incorrecta o aún no ha activado su cuenta.', 'danger');
     }
 }
 

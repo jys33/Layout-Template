@@ -23,7 +23,7 @@ CREATE TABLE user (
 CREATE TABLE post (
 	id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	author_id INT UNSIGNED NOT NULL,
-	created_on INT(10) NOT NULL,
+	created_on INT(11) NOT NULL,
 	last_modified_on DATETIME NOT NULL,
 	title VARCHAR(255) NOT NULL,
 	body TEXT NOT NULL,
@@ -37,5 +37,5 @@ CREATE TABLE forgot_password (
 	time INT(11) NOT NULL,
 	status VARCHAR(7) NOT NULL,
 	created_on DATETIME NOT NULL, 
-	modified DATETIME NOT NULL
+	last_modified_on DATETIME NOT NULL
 ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_general_ci;

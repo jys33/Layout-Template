@@ -3,6 +3,7 @@
 require_once("constants.php");
 
 function getPost($id, $check_autor=true){
+    $id = htmlspecialchars($id);
     $q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
           FROM post p JOIN user u ON p.author_id = u.user_id WHERE p.id = ?';
     $posts = query($q, $id);

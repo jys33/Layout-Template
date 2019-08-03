@@ -2,7 +2,7 @@
     <header class="mb-4">
         <h1 class="text-primary">Posts</h1>
         <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="create.php" class="btn btn-primary btn-sm mb-2">Nuevo</a>
+        <a href="create.php" class="btn btn-light btn-sm mb-2">Nuevo</a>
         <?php endif ?>
     </header>
     <?php foreach ($posts as $post): ?>
@@ -15,10 +15,10 @@
                 $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                 if($user == $post['author_id']): ?>  
                 <div class="float-right">
-                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-success btn-sm" title="Editar">Editar</a>&nbsp;
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-light btn-sm" title="Editar">&#9998;</a>
                     <form action="delete.php" method="POST" class="d-inline">
-                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar">Eliminar</button>
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
+                        <button type="submit" class="btn btn-light btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar">&#128465;</button>
                     </form>
                 </div>
                 <?php endif ?>
@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p><?= nl2br($post['body']); ?></p>
-                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' el ' . strftime('%A, %e de %B de %Y %H:%M:%S', $post['created_on']) ?></span>
+                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  strftime('%A, %e de %B de %Y %H:%M:%S', $post['created_on']) ?> &#128467;</span>
             </div>
         </div>
         <hr>

@@ -18,7 +18,7 @@ $data = [
 http://localhost/phpapp/public/update.php?id=2
 
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 2)
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'], $_POST['titulo'], $_POST['descripcion']) && filter_var($_POST['id'], FILTER_VALIDATE_INT) )
 {
 	// Sanitizamos el array POST
 	$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -27,11 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 2)
 	$trimmed = array_map('trim', $_POST);
 	$_POST = preg_replace('/\s\s+/', ' ', $trimmed);
 
-	if (array_key_exists('id', $_POST) && filter_var($_POST['id'], FILTER_VALIDATE_INT)) {
-		$data['id'] = $_POST['id'];
-	} else{
-		render('error/404', ['message' => 'un error ha ocurrido.', 'title' => 'Error']);
-	}
+	$data['id'] = $_POST['id'];
 
 	/*
 	 * Validamos el nombre
@@ -71,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 2)
 		$update_result = query($q, $data['titulo'], $data['descripcion'], $_SESSION['user_id'], $dateTime, $data['id']);
 		// Si true => todo salió bien.
 		if ($update_result) {
-		    flash('success', 'El registro fue actualizado correctamente.');
+		    flash('success', 'Guardado correctamente.');
 		    redirect("post.php");
 		}
 		
@@ -84,17 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 2)
 }
 
 // if form was submitted
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && count($_GET) > 0)
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id']))
 {
-	if (array_key_exists('id', $_GET)) {
-		$post = getPost($_GET['id']);
-		$data['titulo'] = $post['title'];
-		$data['descripcion'] = $post['body'];
-		$data['id'] = $post['id'];
+	$post = getPost($_GET['id']);
+	$data['titulo'] = $post['title'];
+	$data['descripcion'] = $post['body'];
+	$data['id'] = $post['id'];
 
-		// else render form
-		render("post/update", $data);
-	}
+	// else render form
+	render("post/update", $data);
 }
 
 render('error/404', ['message' => 'un error ha ocurrido.', 'title' => 'Error']);
