@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 1){
     			$_SESSION["user_id"] = $user["user_id"];
     			$_SESSION["user_name"] = $user["user_name"];
     			// redirect to portfolio
-                redirect("index.php");
+                redirect("post.php");
     		}
     	}
 

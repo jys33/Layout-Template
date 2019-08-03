@@ -46,7 +46,7 @@ function get_post($id, $check_autor=true){
 	$posts = query($q, $id);
 	if (count($posts) != 1) {
 		header("HTTP/1.0 404 Not Found");
-		render('error/404', ['message' => 'post id ' . $id . ' doesn\'t exist.']);
+		render('error/404', ['message' => 'post id ' . $id . ' no existe.']);
 	}
 	$post = $posts[0];
 	if ($check_autor && $post['author_id'] != $_SESSION['user_id']) {

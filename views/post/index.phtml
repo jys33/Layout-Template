@@ -1,8 +1,8 @@
 <section class="content">
     <header class="mb-4">
-        <h1 class="text-primary">Post</h1>
+        <h1 class="text-primary">Posts</h1>
         <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="post/create.php" class="btn btn-primary btn-sm mb-2">Nuevo</a>
+        <a href="create.php" class="btn btn-primary btn-sm mb-2">Nuevo</a>
         <?php endif ?>
     </header>
     <?php foreach ($posts as $post): ?>
@@ -15,8 +15,9 @@
                 $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                 if($user == $post['author_id']): ?>  
                 <div class="float-right">
-                    <a href="/post/update/<?= $post['id'] ?>" class="btn btn-success btn-sm" title="Editar">Editar</a>&nbsp;
-                    <form action="/post/delete/<?= $post['id'] ?>" method="POST" class="d-inline">
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-success btn-sm" title="Editar">Editar</a>&nbsp;
+                    <form action="delete.php" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>">
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar">Eliminar</button>
                     </form>
                 </div>

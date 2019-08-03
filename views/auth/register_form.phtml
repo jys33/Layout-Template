@@ -1,5 +1,5 @@
 <section style="width: 100%;max-width: 500px; margin: auto;">
-    <h2 class="mb-4">Registro de usuario</h2>
+    <h1 class="mb-4">Registro de usuario</h1>
     <form class="needs-validation" action="register.php" method="POST">
         <div class="form-group">
             <label for="email">Email <span class="required">*</span></label>
@@ -34,6 +34,6 @@
             <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirm_password" maxLength="32"/>
             <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
         </div>
-        <button type="submit" class="btn btn-success btn-lg px-5 my-4" name="send_btn">Enviar <span class="fs-14">&#10095;</span></button>
+        <button type="submit" class="btn btn-primary btn-lg my-4" name="send_btn">Enviar &raquo;</button>
     </form>
 </section>

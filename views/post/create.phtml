@@ -1,0 +1,16 @@
+<section>
+	<h1 class="text-primary mb-4">Nuevo Post</h1>
+	<form action="create.php" method="POST">
+	    <div class="form-group">
+	        <label for="titulo">Título</label>
+	        <input type="text" name="titulo" class="form-control <?= empty($titulo_err) ? '' : 'is-invalid' ?>" id="" autofocus maxlength="100" value="<?= htmlspecialchars( $titulo ) ?>" />
+	        <div class="invalid-feedback"><?= htmlspecialchars($titulo_err) ?></div>
+	    </div>
+	    <div class="form-group">
+	        <label for="descripcion">Descripción</label>
+	        <textarea name="descripcion" class="form-control <?= empty($descripcion_err) ? '' : 'is-invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
+	        <div class="invalid-feedback"><?= htmlspecialchars($descripcion_err) ?></div>
+	    </div>
+	    <button type="submit" class="btn btn-primary my-4">Guardar Post</button>
+	</form>
+</section>

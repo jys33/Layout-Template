@@ -69,11 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
         if (!checkUsername($data['usuario'])) {
             $data['usuario_err'] = "Los nombres de usuario no pueden contener espacios y no deben empezar por un número o subrayado.";
         }
-        else
-        {
-            if(!meetLength($data['usuario'], 2, 20)) {
+        elseif(!meetLength($data['usuario'], 2, 20)) {
                 $data['usuario_err'] = 'El nombre de usuario debe incluir entre 2 y 20 caracteres.';
-            }
+        }
+        else {
             // consultamos la tabla por el email
             $rows = query('SELECT user_id FROM user WHERE user_name=?', $data['usuario']);
 
@@ -97,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
         if(!checkIfOnlyLetters($data['nombre'])) {
             $data['nombre_err'] = 'El nombre solo debe incluir letras y espacios en blanco.';
         }
-        if(!meetLength($data['nombre'], 3, 20)) {
+        elseif(!meetLength($data['nombre'], 3, 20)) {
             $data['nombre_err'] = 'El nombre debe incluir entre 3 y 20 letras.';
         }
     }
@@ -115,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && count($_POST) > 5)
         if(!checkIfOnlyLetters($data['apellido'])) {
             $data['apellido_err'] = 'El apellido solo debe incluir letras y espacios en blanco.';
         }
-        if(!meetLength($data['apellido'], 3, 20)) {
+        elseif(!meetLength($data['apellido'], 3, 20)) {
             $data['apellido_err'] = 'El apellido debe incluir entre 3 y 20 letras.';
         }
     }

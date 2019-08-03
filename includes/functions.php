@@ -1,5 +1,24 @@
 <?php
 
+require_once("constants.php");
+
+function getPost($id, $check_autor=true){
+    $q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
+          FROM post p JOIN user u ON p.author_id = u.user_id WHERE p.id = ?';
+    $posts = query($q, $id);
+    if (count($posts) != 1) {
+        header("HTTP/1.0 404 Not Found");
+        render('error/404', ['message' => 'post id ' . $id . ' no existe.', 'title' => 'Error']);
+    }
+    $post = $posts[0];
+    if ($check_autor && $post['author_id'] != $_SESSION['user_id']) {
+        header("HTTP/1.0 403 Forbidden");
+        render('error/403', ['message' => 'no puedes realizar está acción.', 'title' => 'Error']);
+    }
+
+    return $post;
+}
+
 /**
  * funciones de validación
  */
@@ -82,15 +101,16 @@ function redirect($destination)
         header("Location: " . $destination);
     }
 
-    // handle absolute path - manejar ruta absoluta
-    else if (preg_match("/^\//", $destination))
+    // handle absolute path - Ruta absoluta
+    else if (preg_match("/^\//", $destination)) //la barra \ es el caracter de escape de / en la regEx
     {
         $protocol = (isset($_SERVER["HTTPS"])) ? "https" : "http";
         $host = $_SERVER["HTTP_HOST"];
         header("Location: $protocol://$host$destination");
+        // redirect('/login.php'); => http://localhost/login.php
     }
 
-    // handle relative path - manejar ruta relativa
+    // handle relative path - Ruta relativa
     else
     {
         // adapted from http://www.php.net/header
@@ -98,6 +118,7 @@ function redirect($destination)
         $host = $_SERVER["HTTP_HOST"];
         $path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
         header("Location: $protocol://$host$path/$destination");
+        // redirect('login.php'); => http://localhost/phpapp/public  login.php
     }
 
     // exit immediately since we're redirecting anyway

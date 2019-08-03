@@ -12,8 +12,8 @@ require("../includes/config.php");
 //     'title' => 'Publicaciones',
 //     'posts' => query($q)
 // ];
-//echo $_SERVER['REQUEST_URI'];
-$page = 'home';
+
+$page = 'about';
 
 // render portfolio
-render('page/' . $page . '' , ['title' => 'Home']);
+render('page/' . $page . '' , ['title' => 'Acerca']);

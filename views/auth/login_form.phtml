@@ -1,5 +1,5 @@
 <section style="width: 100%;max-width: 380px;margin: auto;">
-    <h2 class="mb-4">Iniciar sesión</h2>
+    <h1 class="mb-4">Iniciar sesión</h1>
     <form class="needs-validation" action="login.php" method="POST">
         <div class="form-group">
             <label for="email">Email</label>
@@ -9,7 +9,7 @@
         <div class="form-group">
             <label for="password">Contraseña</label>
             <div class="input-group">
-                <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" autocomplete="off" maxlength="50" value=""/>
+                <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" id="password" autocomplete="off" maxlength="50" value="Abc123456/*"/>
                 <!-- <div class="input-group-append">
                     <span class="input-group-text showhidden" id="show-password">Mostrar</span>
                 </div> -->
@@ -21,6 +21,6 @@
             <input class="form-check-input" type="checkbox" id="remember_me"/>
             <label class="form-check-label fs-14" for="remember_me">Recordarme</label>
         </div>
-        <button type="submit" class="btn btn-success btn-lg px-5">Ingresar <span class="fs-14">&#10095;</span></button>
+        <button type="submit" class="btn btn-primary btn-lg">Ingresar &raquo;</button>
     </form>
 </section>
