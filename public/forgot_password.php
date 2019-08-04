@@ -66,9 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
             $headers = 'From:PHPApp <noreply@eduoffyoucode.com>' . "\r\n";
             $message = "Para restablecer su contraseña haga click en el siguiente enlace:\n\n";
             $message .= BASE_URL . "/reset_password.php?user_id=" . $user_id . "&key=" . $key;
-            echo $message;
             if( mail($to, $subject , $message, $headers) ) {
-                flash('success', 'Un email de restablecimiento a sido enviado a <b>' . $data['email'] . '. </b>Por favor, haga click en el enlace de ese correo electrónico para restablecer su contraseña.');
+                flash('success', 'Un email de restablecimiento a sido enviado a <b>' . $data['email'] . '. </b><br>Por favor, haga click en el enlace de ese correo electrónico para restablecer su contraseña.');
                 // re dirigimos al usuario a la página de inicio
                 redirect('login.php');
             }

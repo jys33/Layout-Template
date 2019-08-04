@@ -6,5 +6,5 @@ require("../includes/config.php");
 //echo $_SERVER['REQUEST_URI'];
 $page = 'home';
 
-// render portfolio
+// render request page
 render('page/' . $page . '' , ['title' => 'Home']);

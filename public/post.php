@@ -12,5 +12,5 @@ $data = [
     'posts' => query($q)
 ];
 
-// render portfolio
+// render datalist
 render("post/index", $data);

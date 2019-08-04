@@ -1,40 +1,31 @@
-<section class="content">
-    <header class="mb-4">
-        <h1 class="text-primary">Posts</h1>
+<section class="content" style="padding: 0.9375rem;">
+    <h2 class="text-primary mb-4">Posts
         <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="create.php" class="btn btn-light btn-sm mb-2">Nuevo</a>
+        <a href="create.php" class="btn btn-light btn-sm float-right">Nuevo</a>
         <?php endif ?>
-    </header>
+    </h2>
     <?php foreach ($posts as $post): ?>
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <h2 class=""><?= $post['title']; ?></h2>
-            </div>
-            <div class="col-md-2">
-                <?php
-                $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
-                if($user == $post['author_id']): ?>  
-                <div class="float-right">
-                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-light btn-sm" title="Editar">&#9998;</a>
-                    <form action="delete.php" method="POST" class="d-inline">
-                        <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
-                        <button type="submit" class="btn btn-light btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar">&#128465;</button>
-                    </form>
-                </div>
-                <?php endif ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <p><?= nl2br($post['body']); ?></p>
-                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  strftime('%A, %e de %B de %Y %H:%M:%S', $post['created_on']) ?> &#128467;</span>
+                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  strftime('%A, %e de %B de %Y', $post['created_on']) ?>
+                    <?php
+                    $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+                    if($user == $post['author_id']): ?>
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-sm ml-sm-1 pr-sm-2" title="Editar"><i class="fas fa-pen"></i></a>
+                    <form action="delete.php" method="POST" class="d-inline">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
+                        <button type="submit" class="btn btn-sm px-sm-0" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                    <?php endif ?>
+                </span>
             </div>
         </div>
         <hr>
     <?php endforeach ?>
 </section>
-
-<style type="text/css">
-    .content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
-    .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0;}
-</style>

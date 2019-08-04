@@ -17,9 +17,6 @@ $data = [
 
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['password'])){
-    // echo '<pre>';
-    // print_r($_POST);
-    // echo '</pre>';
     // Sanitizamos el array POST
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 

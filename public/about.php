@@ -5,5 +5,5 @@ require("../includes/config.php");
 
 $page = 'about';
 
-// render portfolio
+// render about page
 render('page/' . $page . '' , ['title' => 'Acerca']);

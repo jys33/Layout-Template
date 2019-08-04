@@ -1,5 +1,5 @@
-<section>
-	<h1 class="text-primary mb-4">Editar Post</h1>
+<section style="padding: 0.9375rem;">
+	<h2 class="text-primary mb-4">Editar Post</h2>
 	<form action="update.php" method="POST">
 	    <div class="form-group">
 	        <label for="titulo">Título</label>
@@ -12,6 +12,6 @@
 	        <textarea name="descripcion" class="form-control <?= empty($descripcion_err) ? '' : 'is-invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
 	        <div class="invalid-feedback"><?= htmlspecialchars($descripcion_err) ?></div>
 	    </div>
-	    <button type="submit" class="btn btn-primary">Guardar &raquo;</button>
+	    <button type="submit" class="btn btn-primary btn-lg px-4 mt-2">Guardar &raquo;</button>
 	</form>
 </section>
