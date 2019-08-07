@@ -1,0 +1,27 @@
+<section class="section" style="width: 100%;max-width: 380px;margin: auto;">
+    <div class="row">
+        <form class="col s12" id="needs-validation" novalidate method="POST">
+            <h3 class="">Iniciar sesión</h3>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" class="<?= empty($email_err) ? '' : 'invalid' ?>" value="<?= htmlspecialchars($email) ?>">
+                    <span class="helper-text"><?= htmlspecialchars($email_err) ?></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <label for="password">Contraseña</label>
+                    <input id="password" name="password" type="password" class="<?= empty($password_err) ? '' : 'invalid' ?>">
+                    <span class="helper-text"><?= htmlspecialchars($password_err) ?></span>
+                </div>
+            </div>
+            <div class="row">
+                
+            </div>
+            <button class="btn waves-effect orange" type="submit">
+                Ingresar
+            </button>
+        </form>
+    </div>
+</section>

@@ -13,4 +13,4 @@ $data = [
 ];
 
 // render datalist
-render("post/index", $data);
+render("post/m-index", $data);

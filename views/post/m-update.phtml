@@ -1,0 +1,25 @@
+<section>
+	<div class="row">
+		<form class="col s12" action="update.php" method="POST">
+		    <h3 class="">Editar Post</h3>
+			<div class="row">
+				<div class="input-field col s12">
+				    <label for="titulo">Título</label>
+				    <input type="text" name="titulo" class="<?= empty($titulo_err) ? '' : 'invalid' ?>" id="" maxlength="100" value="<?= htmlspecialchars( $titulo ) ?>" />
+				    <span class="helper-text"><?= htmlspecialchars($titulo_err) ?></span>
+				</div>
+			</div>
+		    <input type="hidden" name="id" value="<?= $id ?>" readonly onmousedown="return false;">
+			<div class="row">
+				<div class="input-field col s12">
+				    <label for="descripcion">Descripción</label>
+				    <textarea name="descripcion" class="materialize-textarea <?= empty($descripcion_err) ? '' : 'invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
+				    <span class="helper-text"><?= htmlspecialchars($descripcion_err) ?></span>
+				</div>
+			</div>
+		    <button class="btn waves-effect orange" type="submit">
+		        Guardar
+		    </button>
+		</form>
+	</div>
+</section>

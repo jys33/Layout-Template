@@ -1,0 +1,14 @@
+<div class="section center" style="background-color: transparent;">
+	<div class="row">
+	    <h1 class="orange-text col s12">Bienvenido a PostApp</h1>
+	</div>
+	<div class="row">
+	    <h5 class="header light col s12">Está aplicación ha sido desarrollada con PHP.</h5>
+	</div>
+	<br>
+	<div class="row">
+		<?php if (!isset( $_SESSION['user_id'] )): ?>
+		<a class="btn btn-large waves-effect orange" href="login.php" role="button">Ingresar</a>
+		<?php endif ?>
+	</div>
+</div>

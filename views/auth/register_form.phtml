@@ -1,16 +1,6 @@
 <section style="width: 100%;max-width: 500px; margin: auto;padding: 0.625rem;">
     <h2 class="mb-4">Registro de usuario</h2>
     <form class="needs-validation" action="register.php" method="POST">
-        <div class="form-group">
-            <label for="email">Email <span class="required">*</span></label>
-            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="32" autocomplete="off"/>
-            <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
-        </div>
-        <div class="form-group">
-            <label for="usuario">Usuario <span class="required">*</span></label>
-            <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
-            <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
-        </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="firstName">Nombre <span class="required">*</span></label>
@@ -22,6 +12,16 @@
                 <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
                 <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
             </div>
+        </div>
+        <div class="form-group">
+            <label for="usuario">Usuario <span class="required">*</span></label>
+            <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="32" autocomplete="off"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
         </div>
         <div class="form-group">
             <label for="password">Contraseña <span class="required">*</span></label>

@@ -77,4 +77,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
 }
 
 // else render form
-render("auth/forgot_password", $data);
+render("auth/m-forgot_password", $data);

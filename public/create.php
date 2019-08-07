@@ -74,4 +74,4 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['des
 }
 
 // else render form
-render("post/create", $data);
+render("post/m-create", $data);

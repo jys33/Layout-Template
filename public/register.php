@@ -180,4 +180,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuar
 }
 
 // else render form
-render("auth/register_form", $data);
+render("auth/m-register_form", $data);

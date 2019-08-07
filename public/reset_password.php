@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' &&
             //echo 'Verificar esté punto';
     	}
 
-    	render("auth/reset_password", $data);
+    	render("auth/m-reset_password", $data);
     }
 }
 
@@ -102,7 +102,7 @@ if (isset($_GET['user_id'], $_GET['key']) &&
 	 * Si encontramos al usuario, mostramos el formulario de cambio de password
 	 */
 	if (count($rows) == 1) {
-		render("auth/reset_password", $data);
+		render("auth/m-reset_password", $data);
 	}
 }
 $message = 'Algo salió mal. Vuelva a comprobar el enlace o póngase en contacto con el administrador del sistema.';

@@ -1,0 +1,42 @@
+<section class="">
+    <div class="row">
+        <div class="col s12">
+            <h3 class="">Post
+                <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="create.php" class="btn-floating waves-effect btn-small"><i class="material-icons" title="Agregar">add</i></a>
+                <?php endif ?>
+            </h3>
+        </div>
+    </div>
+    <?php foreach ($posts as $post): ?>
+        <div class="row">
+            <div class="col s12">
+                <h4 class=""><?= $post['title']; ?></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s10">
+                <span><?= nl2br($post['body']); ?></span>
+            </div>
+            <div class="col s2">
+                <?php
+                $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
+                if($user == $post['author_id']): ?>
+                <span class="right">
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn-floating waves-effect orange btn btn-small" title="Editar"><i class="material-icons">create</i></a>
+                    <form action="delete.php" method="POST" class="" style="display: inline;">
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
+                        <button type="submit" class="btn waves-effect red btn-floating btn-small" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar"><i class="material-icons">delete</i></button>
+                    </form>
+                </span>
+                <?php endif ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <p class="grey-text text-darken-1"><?= 'Por ' . $post['user_name'] . ' | '  .  strftime('%A, %e de %B de %Y', $post['created_on']) ?></p>
+            </div>
+        </div>
+        <hr>
+    <?php endforeach ?>
+</section>

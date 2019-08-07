@@ -1,0 +1,28 @@
+<nav class="light-blue lighten-1">
+    <div class="nav-wrapper container">
+        <a href="index.php" class="brand-logo">PostsApp</a>
+        <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="about.php">About</a></li>
+            <?php if (isset( $_SESSION['user_id'] )): ?>
+            <li><a href="post.php">Posts</a></li>
+            <li><a>Bienvenido <?= htmlspecialchars($_SESSION['user_name']) ?>!</a></li>
+            <li><a href="logout.php">Salir</a></li>
+            <?php else: ?>
+            <li><a href="login.php">Ingresar</a></li>
+            <li><a href="register.php">Registrarse</a></li>
+            <?php endif ?>
+        </ul>
+    </div>
+</nav>
+<ul class="sidenav" id="mobile">
+    <li><a href="about.php">About</a></li>
+    <?php if (isset( $_SESSION['user_id'] )): ?>
+    <li><a href="post.php">Posts</a></li>
+    <li><a>Bienvenido <?= htmlspecialchars($_SESSION['user_name']) ?>!</a></li>
+    <li><a href="logout.php">Salir</a></li>
+    <?php else: ?>
+    <li><a href="login.php">Ingresar</a></li>
+    <li><a href="register.php">Registrarse</a></li>
+    <?php endif ?>
+</ul>

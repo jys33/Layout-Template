@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('.needs-validation');
+    const form = document.querySelector('#needs-validation');
     if (form) {
         const email = form.email;
         const usuario = form.usuario;
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
             apellido.onpaste = evt => false;
             apellido.ondragover = evt => false;
 
-            email.addEventListener('focusout', checkEmail);
-            usuario.addEventListener('focusout', checkUsername);
             nombre.addEventListener('focusout', checkFirstName);
             apellido.addEventListener('focusout', checkLastName);
+            usuario.addEventListener('focusout', checkUsername);
+            email.addEventListener('focusout', checkEmail);
             password.addEventListener('focusout', checkPassword);
             confirm_password.addEventListener('focusout', checkConfirmPassword);
             confirm_password.addEventListener('input', checkConfirmPassword);
@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
             form.onsubmit = (evt) => {
                 if (
                     !(
-                        checkEmail() &&
-                        checkUsername() &&
                         checkFirstName() &&
                         checkLastName() &&
+                        checkUsername() &&
+                        checkEmail() &&
                         checkPassword() &&
                         checkConfirmPassword()
                         )
@@ -49,12 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     evt.preventDefault();
                 }
             }
-        // Si el formulario es de restablecer contraseña
+        // Si el formulario es de forgot contraseña
         } else if (email) {
             email.addEventListener('input', validateEmail);
+            email.addEventListener('focusout', validateEmail);
 
             form.onsubmit = (evt) => {
                 if(!validateEmail()){
+                    inputFocus();
+                    evt.preventDefault();
+                }
+            }
+
+        // Si el formulario es de reset contraseña
+        } else if (password && confirm_password){
+            password.addEventListener('focusout', checkPassword);
+            confirm_password.addEventListener('focusout', checkConfirmPassword);
+            confirm_password.addEventListener('input', checkConfirmPassword);
+            form.onsubmit = (evt) => {
+                if( !(checkConfirmPassword() && checkPassword()) ){
                     inputFocus();
                     evt.preventDefault();
                 }
@@ -75,7 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
         function inputFocus(){
             let length = form.elements.length;
             for(let i = 0; i < length; i++){
-                if (form.elements[i].classList.contains('is-invalid')) {
+                // if (form.elements[i].classList.contains('is-invalid')) {
+                //     form.elements[i].focus();
+                //     break;
+                // }
+                if (form.elements[i].classList.contains('invalid')) {
                     form.elements[i].focus();
                     break;
                 }
@@ -117,10 +134,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function checkConfirmPassword(){
-            if (!password.classList.contains('is-valid')) {
+            if (!password.classList.contains('valid')) {
                 setInvalid(confirm_password, 'La contraseña debe ser válida.');
                 return;
             }
+            // if (!password.classList.contains('is-valid')) {
+            //     setInvalid(confirm_password, 'La contraseña debe ser válida.');
+            //     return;
+            // }
             // If they match
             if (password.value !== confirm_password.value) {
                 setInvalid(confirm_password, 'Las contraseñas no coinciden.');
@@ -209,15 +230,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function setInvalid(field, message){
-            field.classList.add('is-invalid');
-            field.classList.remove('is-valid');
+            // field.classList.add('is-invalid');
+            // field.classList.remove('is-valid');
+            // field.nextElementSibling.innerHTML = message;
+
+            field.className = 'invalid';
             field.nextElementSibling.innerHTML = message;
+            field.nextElementSibling.style.color = 'red';
         }
 
         function setValid(field, message){
-            field.classList.add('is-valid');
-            field.classList.remove('is-invalid');
+            // field.classList.add('is-valid');
+            // field.classList.remove('is-invalid');
+            // field.nextElementSibling.innerHTML = message;
+
+            field.className = 'valid';
             field.nextElementSibling.innerHTML = message;
+            //field.nextElementSibling.style.color = green;
         }
         
         function containsCharacters(field, code) {

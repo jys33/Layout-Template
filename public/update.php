@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'], $_POST['titulo']
 	}
 
 	// else render form
-	render("post/update", $data);
+	render("post/m-update", $data);
 }
 
 // if form was submitted
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id']))
 	$data['id'] = $post['id'];
 
 	// else render form
-	render("post/update", $data);
+	render("post/m-update", $data);
 }
 
 render('error/404', ['message' => 'un error ha ocurrido.', 'title' => 'Error']);
