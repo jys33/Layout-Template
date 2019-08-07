@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    if (document.querySelector('.alert')) {
+        var s = document.querySelector('.alert').style;
+        s.opacity = 7;
+        (function fade(){(s.opacity-=.1)<0?s.display="none":setTimeout(fade,80)})();
+    }
+
     const form = document.querySelector('#needs-validation');
     if (form) {
         const email = form.email;
@@ -41,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si el formulario es de login
         } else if (email && password) {
             email.addEventListener('input', validateEmail);
+            email.addEventListener('focusout', validateEmail);
             password.addEventListener('input', validatePassword);
+            password.addEventListener('focusout', validatePassword);
 
             form.onsubmit = (evt) => {
                 if( !(validateEmail() && validatePassword()) ){
