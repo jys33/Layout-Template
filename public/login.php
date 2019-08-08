@@ -3,7 +3,7 @@
 require("../includes/config.php");
 
 if (array_key_exists('user_id', $_SESSION)) {
-    redirect('index.php');
+    redirect('post.php');
 }
 
 $data = [
@@ -63,4 +63,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['passw
 }
 
 // else render form
-render("auth/m-login_form", $data);
+render("auth/login_form", $data);

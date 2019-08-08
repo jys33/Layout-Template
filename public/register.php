@@ -3,7 +3,7 @@
 require("../includes/config.php");
 
 if (array_key_exists('user_id', $_SESSION)) {
-    redirect('index.php');
+    redirect('post.php');
 }
 
 $data = [
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuar
 
         // Si true => todo salió bien.
         if ($insert_result) {
-            flash('success', 'Guardado correctamente, ahora puedes loguearte.');
+            flash('success', 'Registrado correctamente, ahora puedes iniciar sesión.');
             redirect("login.php");
         }
         
@@ -180,4 +180,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuar
 }
 
 // else render form
-render("auth/m-register_form", $data);
+render("auth/register_form", $data);

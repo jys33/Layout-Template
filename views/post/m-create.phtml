@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="input-field col s12">
 				    <label for="descripcion">Descripción</label>
-				    <textarea name="descripcion" class="materialize-textarea <?= empty($descripcion_err) ? '' : 'invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
+				    <textarea name="descripcion" class="materialize-textarea <?= empty($descripcion_err) ? '' : 'invalid' ?>" id="" rows="5" data-length="500"><?= htmlspecialchars( $descripcion ) ?></textarea>
 				    <span class="helper-text"><?= htmlspecialchars($descripcion_err) ?></span>
 				</div>
 			</div>

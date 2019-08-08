@@ -22,3 +22,5 @@ if (!preg_match("{(?:login|logout|register|forgot_password|index|about|reset_pas
         redirect("register.php");
     }
 }
+
+/*Cuando coincide con el archivo especificado no ingresa en la condición*/

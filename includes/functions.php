@@ -221,8 +221,8 @@ function flash($name = '', $message = '', $class = 'success')
 
         } elseif(empty($message) && !empty($_SESSION[$name])){
             $class = !empty($_SESSION[$name . '_class']) ? $_SESSION[$name . '_class'] : '';
-            // echo '<div class="alert alert-' . $class . ' alert-dismissible fade show text-center fs-14" role="alert">' . $_SESSION[$name] . '<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="line-height: .9;"><span aria-hidden="true">&times;</span></button></div>';
-            echo '<div class="alert alert-primary center">' . $_SESSION[$name] . '</div>';
+            echo '<div class="alert alert-' . $class . ' alert-dismissible fade show text-center fs-14" role="alert">' . $_SESSION[$name] . '<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="line-height: .9;"><span aria-hidden="true">&times;</span></button></div>';
+            //echo '<div class="alert alert-primary center">' . $_SESSION[$name] . '</div>';
             unset($_SESSION[$name]);
             unset($_SESSION[$name . '_class']);
         }
@@ -241,13 +241,13 @@ function render($template, $values = [])
         extract($values);
 
         // render header
-        require('../views/inc/m-header.phtml');
+        require('../views/inc/header.phtml');
 
         // render template
         require('../views/' . $template . '.phtml');
 
         // render footer
-        require('../views/inc/m-footer.phtml');
+        require('../views/inc/footer.phtml');
 
         exit;
     }

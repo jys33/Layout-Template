@@ -1,6 +1,6 @@
 <section style="width: 100%;max-width: 520px; margin: auto;padding: 0.625rem;">
-    <h1 class="mb-4 text-center">Registro de usuario</h1>
-    <form class="needs-validation" method="POST">
+    <h1 class="mb-4 text-center">Información de la cuenta</h1>
+    <form class="needs-validation" action="profile.php" method="POST">
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="firstName">Nombre <span class="required">*</span></label>
@@ -13,28 +13,30 @@
                 <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-4">
             <label for="usuario">Usuario <span class="required">*</span></label>
             <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
             <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
         </div>
+        <button type="submit" class="btn btn-primary btn-block btn-lg mb-4" name="save_account_details">Guardar &raquo;</button>
+        <hr class="my-5">
         <div class="form-group">
-            <label for="email">Email <span class="required">*</span></label>
-            <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" value="<?= htmlspecialchars( $email ) ?>" maxlength="32" autocomplete="off"/>
-            <div class="invalid-feedback"><?= htmlspecialchars($email_err) ?></div>
-        </div>
-        <div class="form-group">
-            <label for="password">Contraseña <span class="required">*</span></label>
+            <label for="password_actual">Contraseña actual</label>
             <small id="passwordHelpBlock" class="form-text text-muted mb-1 mt-0">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-            <input class="form-control <?= empty($password_err) ? '' : 'is-invalid' ?>" type="password" name="password" maxlength="32" aria-describedby="passwordHelpBlock"/>
-            <div class="invalid-feedback"><?= htmlspecialchars($password_err) ?></div>
+            <input class="form-control <?= empty($password_actual_err) ? '' : 'is-invalid' ?>" type="password" name="password_actual" maxlength="32" aria-describedby="passwordHelpBlock"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($password_actual_err) ?></div>
         </div>
         <div class="form-group mb-4">
-            <label for="confirm_password">Confirmar contraseña <span class="required">*</span></label>
-            <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirm_password" maxLength="32"/>
-            <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
+            <label for="password_1">Nueva contraseña</label>
+            <input class="form-control <?= empty($password_1_err) ? '' : 'is-invalid' ?>" type="password" name="password_1" maxLength="32"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($password_1_err) ?></div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg mb-4">Registrar &raquo;</button>
+        <div class="form-group mb-4">
+            <label for="password_2">Confirmar nueva contraseña</label>
+            <input class="form-control <?= empty($password_2_err) ? '' : 'is-invalid' ?>" type="password" name="password_2" maxLength="32"/>
+            <div class="invalid-feedback"><?= htmlspecialchars($password_2_err) ?></div>
+        </div>
+        <input type="hidden" name="id" value="<?= $id ?>" readonly onmousedown="return false;">
+        <button type="submit" class="btn btn-primary btn-block btn-lg" name="save_account_details">Guardar contraseña &raquo;</button>
     </form>
-    <p class="text-muted text-center small mb-2">¿Ya tienes una cuenta? <a href="login.php">Iniciar sesión</a></p>
 </section>
