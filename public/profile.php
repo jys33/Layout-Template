@@ -11,25 +11,26 @@ $data = [
 	'id' => '',
 	'nombre' => '',
     'apellido' => '',
-    'email' => '',
     'usuario' => '',
-    'password' => '',
-    'confirm_password' => '',
+    'password_actual' => '',
+    'password_1' => '',
+    'password_2' => '',
     /*Error*/
     'nombre_err' => '',
     'apellido_err' => '',
-    'email_err' => '',
     'usuario_err' => '',
-    'password_err' => '',
-    'confirm_password_err' => ''
+    'password_actual_err' => '',
+    'password_1_err' => '',
+    'password_2_err' => ''
 ];
 
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nombre'], $_POST['apellido'], $_POST['usuario']) && filter_var($_POST['id'], FILTER_VALIDATE_INT) ) {
 
-	echo '<pre>';
-	print_r($_POST);
-	echo '</pre>';
+	// echo '<pre>';
+	// print_r($_POST);
+	// echo '</pre>';
+	echo 'En construcción: <a href="profile.php">Volver</a>';
 	exit;
 
 }
