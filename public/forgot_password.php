@@ -67,9 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
             $message = "Para restablecer su contraseña haga click en el siguiente enlace:\n\n";
             $message .= BASE_URL . "/reset_password.php?user_id=" . $user_id . "&key=" . $key;
             if( mail($to, $subject , $message, $headers) ) {
-                //flash('success', 'Un email de restablecimiento a sido enviado a <b>' . $data['email'] . '. </b><br>Por favor, haga click en el enlace de ese correo electrónico para restablecer su contraseña.');
-                // re dirigimos al usuario a la página de inicio
-                //redirect('login.php');
                 $data['message'] = 'Se ha enviado un correo electrónico de restablecimiento de contraseña a la dirección de correo electrónico registrada en su cuenta, pero puede tardar varios minutos en aparecer en su bandeja de entrada. Espere al menos 10 minutos antes de intentar otro reinicio.';
                 $data['success'] = 'Correo electrónico de restablecimiento de contraseña enviado.';
                 // else render form
