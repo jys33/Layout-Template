@@ -5,7 +5,7 @@
 /* Show/Hide password*/
 .showhidden {
     font-size: 0.75rem; 
-    line-height: 2.4;
+    line-height: 2.3;
     background-color: white;
     display: none;
     cursor: pointer;
@@ -17,6 +17,11 @@ label {
     margin-bottom: .25rem;
     font-weight: 500;
 }
+
+.invalid-feedback {color: #F44336;}
+.form-control.is-invalid, .form-control.is-valid{background-image: unset;padding: .375rem .75rem;}
+.form-control.is-invalid{border: 1px solid #F44336;}
+.form-control.is-valid{border: 1px solid #4CAF50;}
 
 .form-control.is-invalid:focus,
 .form-control.is-valid:focus,

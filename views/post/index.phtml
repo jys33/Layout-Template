@@ -1,13 +1,13 @@
 <section class="content" style="padding: 0.625rem;">
     <h1 class="text-primary mb-4">Posts
         <?php if (isset($_SESSION['user_id'])): ?>
-        <a href="create.php" class="btn btn-light btn-sm float-right">Nuevo</a>
+        <a href="create.php" class="btn btn-light btn-sm float-right" title="Agregar post">Nuevo</a>
         <?php endif ?>
     </h1>
     <?php foreach ($posts as $post): ?>
         <div class="row">
             <div class="col-md-12">
-                <h2 class=""><?= $post['title']; ?></h2>
+                <h2 class="h3"><?= $post['title']; ?></h2>
             </div>
         </div>
         <div class="row">
@@ -17,10 +17,10 @@
                     <?php
                     $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                     if($user == $post['author_id']): ?>
-                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-sm ml-sm-1 pr-sm-2" title="Editar"><i class="fas fa-pen"></i></a>
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-sm ml-sm-1 pr-sm-2" title="Editar post"><i class="fas fa-pen"></i></a>
                     <form action="delete.php" method="POST" class="d-inline">
                         <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
-                        <button type="submit" class="btn btn-sm px-sm-0" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
+                        <button type="submit" class="btn btn-sm px-sm-0" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar post"><i class="fas fa-trash-alt"></i></button>
                     </form>
                     <?php endif ?>
                 </span>

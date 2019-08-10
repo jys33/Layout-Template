@@ -3,8 +3,14 @@
 // configuration
 require("../includes/config.php"); 
 
-//echo $_SERVER['REQUEST_URI'];
-$page = 'home';
+$q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
+        FROM post p JOIN user u ON p.author_id = u.user_id
+        ORDER BY p.created_on DESC;';
 
-// render request page
-render('page/' . $page . '' , ['title' => 'Inicio']);
+$data = [
+    'title' => 'Publicaciones',
+    'posts' => query($q)
+];
+
+// render datalist
+render("post/index", $data);

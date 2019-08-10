@@ -3,7 +3,7 @@
 require("../includes/config.php");
 
 if (array_key_exists('user_id', $_SESSION)) {
-    redirect('post.php');
+    redirect('index.php');
 }
 
 $data = [
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['passw
     			$_SESSION["user_id"] = $user["user_id"];
     			$_SESSION["user_name"] = $user["user_name"];
     			// redirect to portfolio
-                redirect("post.php");
+                redirect("index.php");
     		}
     	}
 

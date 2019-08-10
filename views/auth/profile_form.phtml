@@ -22,13 +22,13 @@
         <hr class="my-5">
         <div class="form-group">
             <label for="password_actual">Contraseña actual</label>
-            <small id="passwordHelpBlock" class="form-text text-muted mb-1 mt-0">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-            <input class="form-control <?= empty($password_actual_err) ? '' : 'is-invalid' ?>" type="password" name="password_actual" maxlength="32" aria-describedby="passwordHelpBlock"/>
+            <input class="form-control <?= empty($password_actual_err) ? '' : 'is-invalid' ?>" type="password" name="password_actual" maxlength="32" />
             <div class="invalid-feedback"><?= htmlspecialchars($password_actual_err) ?></div>
         </div>
         <div class="form-group mb-4">
             <label for="password_1">Nueva contraseña</label>
-            <input class="form-control <?= empty($password_1_err) ? '' : 'is-invalid' ?>" type="password" name="password_1" maxLength="32"/>
+            <small id="passwordHelpBlock" class="form-text text-muted mb-1 mt-0">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
+            <input class="form-control <?= empty($password_1_err) ? '' : 'is-invalid' ?>" type="password" name="password_1" maxLength="32" aria-describedby="passwordHelpBlock"/>
             <div class="invalid-feedback"><?= htmlspecialchars($password_1_err) ?></div>
         </div>
         <div class="form-group mb-4">

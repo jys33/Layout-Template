@@ -68,11 +68,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'], $_POST['titulo']
 		// Si true => todo salió bien.
 		if ($update_result) {
 		    flash('success', 'Guardado correctamente.');
-		    redirect("post.php");
+		    redirect("index.php");
 		}
 		
 		flash('error', 'El registro no fue actualizado.', 'danger');
-		redirect("post.php");
+		redirect("index.php");
 	}
 
 	// else render form

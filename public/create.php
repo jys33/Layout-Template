@@ -65,11 +65,11 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['des
 		// Si true => todo salió bien.
 		if ($insert_result) {
 		    flash('success', 'Guardado correctamente.');
-		    redirect("post.php");
+		    redirect("index.php");
 		}
 		
 		flash('error', 'El registro no fue realizado.', 'danger');
-		redirect("post.php");
+		redirect("index.php");
 	}
 }
 

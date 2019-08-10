@@ -3,7 +3,7 @@
 require("../includes/config.php");
 
 if (array_key_exists('user_id', $_SESSION)) {
-    redirect('post.php');
+    redirect('index.php');
 }
 
 $data = [
