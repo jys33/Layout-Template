@@ -52,7 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuar
 
             // Si existe el email
             if( count($rows) != 0 ){
-                $data['email_err'] = 'El email "'. $data['email'] . '" ya está registrado. Prueba con otro.';
+                $data['email_err'] = 'El email "'. $data['email'] . '" ya está registrado. Por favor Inicia sesión.';
+                //Error: An account is already registered with your email address. Please log in.
             }
         }
     }

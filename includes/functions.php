@@ -3,21 +3,36 @@
 require_once("constants.php");
 
 function getPost($id, $check_autor=true){
-    $id = htmlspecialchars($id);
-    $q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
-          FROM post p JOIN user u ON p.author_id = u.user_id WHERE p.id = ?';
-    $posts = query($q, $id);
-    if (count($posts) != 1) {
-        header("HTTP/1.0 404 Not Found");
-        render('error/404', ['message' => 'post id ' . $id . ' no existe.', 'title' => 'Error']);
-    }
-    $post = $posts[0];
-    if ($check_autor && $post['author_id'] != $_SESSION['user_id']) {
-        header("HTTP/1.0 403 Forbidden");
-        render('error/403', ['message' => 'no puedes realizar está acción.', 'title' => 'Error']);
+    static $post;
+    if (!isset($post)) {
+        $q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
+              FROM post p JOIN user u ON p.author_id = u.user_id WHERE p.id = ?';
+        $posts = query($q, $id);
+        if (count($posts) != 1) {
+            header("HTTP/1.0 404 Not Found");
+            render('error/404', ['message' => 'post id ' . $id . ' no existe.', 'title' => 'Error']);
+        }
+        $post = $posts[0];
+        if ($check_autor && $post['author_id'] != $_SESSION['user_id']) {
+            header("HTTP/1.0 403 Forbidden");
+            render('error/403', ['message' => 'no puedes realizar está acción.', 'title' => 'Error']);
+        }
     }
 
     return $post;
+}
+
+function getUser($id){
+    static $user;
+    if (!isset($user)) {
+        $rows = query('SELECT * FROM user WHERE user_id=? AND deleted=0', $id);
+        if (count($rows) != 1) {
+            header("HTTP/1.0 404 Not Found");
+            render('error/404', ['message' => 'user id ' . $id . ' no existe.', 'title' => 'Error']);
+        }
+        $user = $rows[0];
+    }
+    return $user;
 }
 
 /**

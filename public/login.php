@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['passw
      */
     if (empty($data['email_err']) && empty($data['password_err'])) {
         // 
-    	$rows = query("SELECT * FROM user WHERE user_email=? AND activation='activated'", $data["email"]);
+    	$rows = query("SELECT * FROM user WHERE user_email=? AND activation='activated' AND deleted=0", $data["email"]);
     	// Si encontramos al usuario
     	if (count($rows) == 1) {
     		$user = $rows[0];

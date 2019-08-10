@@ -10,12 +10,17 @@
                 <li class="nav-item"><a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">Acerca</a></li>
             </ul>
-            <?php if (isset( $_SESSION['user_id'] )): ?>
+            <?php if (isset( $_SESSION['user_id'] )):
+                $user = getUser($_SESSION['user_id']);
+            ?>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">Perfil</a></li>
-                <span class="navbar-text mx-md-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($_SESSION['user_name']) ?>!</span></span>
-                <li class="nav-item"><a class="nav-link" href="logout.php">Salir</a></li>
+                <span class="navbar-text mx-md-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
+                <form class="form-inline my-2 my-lg-0" action="logout.php" method="POST">
+                    <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 px-3 py-1">Salir</button>
+                </form>
+                <!-- <li class="nav-item"><a class="nav-link" href="logout.php">Salir</a></li> -->
             </ul>
             <?php else: ?>
             <ul class="navbar-nav ml-auto">

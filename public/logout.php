@@ -2,8 +2,11 @@
 
 require("../includes/config.php");
 
-// log out current user, if any
-logout();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	// log out current user, if any
+	logout();
 
-// redirect user
+	// redirect user
+	redirect('index.php');
+}
 redirect('index.php');
