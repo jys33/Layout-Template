@@ -63,9 +63,8 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['des
 	if (empty( $data['titulo_err'] ) && empty( $data['descripcion_err'] )) {
 		// Creamos la fecha y hora actual
 		$dateTime = date('Y-m-d H:i:s');
-		$time = time();
 		$q = 'INSERT INTO post (title, body, author_id, created_on, last_modified_on) VALUES(?,?,?,?,?);';
-		$insert_result = query($q, $data['titulo'], $data['descripcion'], $_SESSION['user_id'], $time, $dateTime);
+		$insert_result = query($q, $data['titulo'], $data['descripcion'], $_SESSION['user_id'], $dateTime, $dateTime);
 		// Si true => todo salió bien.
 		if ($insert_result) {
 		    flash('success', 'Guardado correctamente.');

@@ -4,7 +4,7 @@
 ini_set("display_errors", true);
 error_reporting(E_ALL);
 mb_internal_encoding('UTF-8');
-setlocale(LC_TIME, 'es_RA.UTF-8');
+//setlocale(LC_TIME, 'es_RA.UTF-8');
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 
 // requirements

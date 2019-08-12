@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p><?= nl2br($post['body']); ?></p>
-                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  strftime('%A, %e de %B de %Y', $post['created_on']) ?>
+                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  dateFormat($post['created_on']) ?>
                     <?php
                     $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                     if($user == $post['author_id']): ?>

@@ -3,7 +3,7 @@
 // configuration
 require("../includes/config.php"); 
 
-$q = 'SELECT p.id, p.title, p.body, p.created_on, p.author_id, u.user_name
+$q = 'SELECT p.id, p.title, p.body, p.last_modified_on, p.created_on, p.author_id, u.user_name
         FROM post p JOIN user u ON p.author_id = u.user_id
         ORDER BY p.created_on DESC;';
 
