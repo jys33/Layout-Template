@@ -3,12 +3,26 @@
 /* font size text */
 .fs-14{font-size: 0.875rem;}
 /* Show/Hide password*/
-.showhidden {
+/*.showhidden {
     font-size: 0.75rem; 
     line-height: 2.3;
     background-color: white;
     display: none;
     cursor: pointer;
+}*/
+.showhidden{
+    position: absolute;
+    top: 70%;
+    display: none;
+    cursor: pointer;
+    right: calc(.375em + .1875rem);
+    transform: translateY(-45%);
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    z-index: 100;
+    font-size: 20px;
+    color: darkgray;
 }
 section h1{font-size: 2.125rem;}/*34px*/
 label {
@@ -19,14 +33,11 @@ label {
 }
 
 .invalid-feedback {color: #F44336;}
-.form-control.is-invalid, .form-control.is-valid{background-image: unset;padding: .375rem .75rem;}
+.form-control.is-invalid{background-image: unset;padding: .375rem .75rem;}
 .form-control.is-invalid{border: 1px solid #F44336;}
-.form-control.is-valid{border: 1px solid #4CAF50;}
 
 .form-control.is-invalid:focus,
-.form-control.is-valid:focus,
 .was-validated .form-control:invalid:focus,
-.was-validated .form-control:valid:focus,
 .form-control:focus {box-shadow: unset;}
 
 .form-control:focus {border-color: #2188ff;}

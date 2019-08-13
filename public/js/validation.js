@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //     setInvalid(confirm_password, 'La contraseña debe ser válida.');
             //     return;
             // }
-            if (!password.classList.contains('is-valid')) {
+            if (password.classList.contains('is-invalid')) {
                 setInvalid(confirm_password, 'La contraseña debe ser válida.');
                 return;
             }
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function setValid(field, message){
-            field.classList.add('is-valid');
+            //field.classList.add('is-valid');
             field.classList.remove('is-invalid');
             field.nextElementSibling.innerHTML = message;
 

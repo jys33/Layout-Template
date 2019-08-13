@@ -172,6 +172,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuar
 
         // Si true => todo salió bien.
         if ($insert_result) {
+            // $to = $data['email'];
+            // $subject = 'Confirmación de registro';
+            // $headers = 'From:PostsApp <noreply@eduoffyoucode.com>' . "\r\n";
+            // $message = "Para activar su cuenta, haga click en el siguiente enlace:\n\n";
+            // $message .= BASE_URL . "/activate.php?email=" . urlencode($data['email']) . "&key=" . urlencode($activationkey);
+            // if( mail($to, $subject , $message, $headers) ) {
+            //     // seteamos el mensage flash para la vista
+            //     flash('success', 'Gracias por registrarse! Un correo electrónico de confirmación a sido enviado a <b>' . $data['email'] . '.</b> Por favor, haga click en el enlace de ese correo electrónico para activar su cuenta.');
+            //     // re dirigimos al usuario a la página de login
+            //     redirect('login.php');
+            // }
             flash('success', 'Registrado correctamente, ahora puedes iniciar sesión.');
             redirect("login.php");
         }
