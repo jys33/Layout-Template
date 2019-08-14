@@ -17,10 +17,10 @@
                     <?php
                     $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                     if($user == $post['author_id']): ?>
-                    <a href="update.php?id=<?= $post['id'] ?>" class="btn btn-sm ml-sm-2 pr-sm-0" title="Editar post"><i class="material-icons" style="color: orange;">edit</i></a>
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn ml-2 pr-0" title="Editar post"><i class="material-icons" style="color: orange;">edit</i></a>
                     <form action="delete.php" method="POST" class="d-inline">
                         <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
-                        <button type="submit" class="btn btn-sm" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar post"><i class="material-icons" style="color: crimson;">delete</i></button>
+                        <button type="submit" class="btn" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar post"><i class="material-icons" style="color: crimson;">delete</i></button>
                     </form>
                     <?php endif ?>
                 </span>

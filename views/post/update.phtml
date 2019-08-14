@@ -12,6 +12,9 @@
 	        <textarea name="descripcion" class="form-control <?= empty($descripcion_err) ? '' : 'is-invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
 	        <div class="invalid-feedback"><?= htmlspecialchars($descripcion_err) ?></div>
 	    </div>
-	    <button type="submit" class="btn btn-primary btn-lg px-4 mt-2">Guardar &raquo;</button>
+	    <div class="form-footer">
+	    	<button type="submit" class="btn btn-primary">Guardar<i class="material-icons right">chevron_right</i></button>
+	    	<a href="index.php" class="btn btn-warning" title="Volver a la lista."><i class="material-icons left">fast_rewind</i>Volver</a>
+	    </div>
 	</form>
 </section>
