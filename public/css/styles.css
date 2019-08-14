@@ -10,6 +10,17 @@
     cursor: pointer;
 }*/
 
+.navbar-brand {
+    color: #202020;
+    padding: 8.5px 0;
+    font-weight: 500;
+    margin-top: -1px;
+}
+
+/* RESET STYLES */
+*:hover, *:focus, *:active {
+  outline: none !important; }
+
 /*.material-icons{font-size: 1.125rem;}/*18px*/
 .showhidden{
     position: absolute;
@@ -23,6 +34,7 @@
     white-space: nowrap;
     z-index: 100;
     color: #495057;
+    font-size: 1.125rem;
 }
 section h1{font-size: 2.125rem;}/*34px*/
 label {

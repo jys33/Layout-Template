@@ -21,7 +21,7 @@
             <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
             <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg mb-4" name="save_details">Guardar &raquo;</button>
+        <button type="submit" class="btn btn-outline-primary btn-block btn-lg mb-4" name="save_details">Guardar</button>
         <hr class="my-5">
         <div class="form-group">
             <label for="password_actual">Contraseña actual</label>
@@ -40,6 +40,6 @@
             <div class="invalid-feedback"><?= htmlspecialchars($password_2_err) ?></div>
         </div>
         <input type="hidden" name="id" value="<?= $id ?>" readonly onmousedown="return false;">
-        <button type="submit" class="btn btn-primary btn-block btn-lg" name="save_password">Guardar contraseña &raquo;</button>
+        <button type="submit" class="btn btn-outline-primary btn-block btn-lg" name="save_password">Guardar contraseña</button>
     </form>
 </section>
