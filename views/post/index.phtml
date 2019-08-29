@@ -12,7 +12,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p><?= nl2br($post['body']); ?></p>
+                <p style="text-align: justify;"><?= nl2br($post['body']); ?></p>
                 <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  dateFormat($post['created_on']) ?>
                     <?php
                     $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
@@ -27,7 +27,7 @@
             </div>
         </div>
         <?php if ($post !== end($posts)): ?>
-        <hr>
+        <hr style="border-top: 1px solid #d2d1d1;">
         <?php endif ?>
     <?php endforeach ?>
 </section>

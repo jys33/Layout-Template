@@ -19,7 +19,9 @@
 
 /* RESET STYLES */
 *:hover, *:focus, *:active {
-  outline: none !important; }
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 /*.material-icons{font-size: 1.125rem;}/*18px*/
 .showhidden{
@@ -48,10 +50,6 @@ label {
 .form-control.is-invalid{background-image: unset;padding: .375rem .75rem;}
 .form-control.is-invalid{border: 1px solid #F44336;}
 
-.form-control.is-invalid:focus,
-.was-validated .form-control:invalid:focus,
-.form-control:focus {box-shadow: unset;}
-
 .form-footer{display: flex; align-items: center;}
 .form-footer>:not(:last-child) {margin-right: .25rem;}
 .form-footer>:not(:first-child) {margin-left: .25rem;}
@@ -79,7 +77,6 @@ i.left {
 /*END ICONS*/
 
 .btn-lg {font-size: 1rem;}
-.btn:focus{box-shadow: unset!important;}
 /*table */
 table {font-size: .875rem;}/*14px*/
 
