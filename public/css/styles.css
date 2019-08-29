@@ -34,7 +34,7 @@
     white-space: nowrap;
     z-index: 100;
     color: #495057;
-    font-size: 1.125rem;
+    font-size: 1.375rem;
 }
 section h1{font-size: 2.125rem;}/*34px*/
 label {
@@ -53,12 +53,8 @@ label {
 .form-control:focus {box-shadow: unset;}
 
 .form-footer{display: flex; align-items: center;}
-.form-footer>:not(:last-child) {
-    margin-right: .25rem;
-}
-.form-footer>:not(:first-child) {
-    margin-left: .25rem;
-}
+.form-footer>:not(:last-child) {margin-right: .25rem;}
+.form-footer>:not(:first-child) {margin-left: .25rem;}
 
 .form-control:focus {border-color: #2188ff;}
 .form-control {
@@ -151,4 +147,26 @@ table {font-size: .875rem;}/*14px*/
         bottom: 30px;
     }
 }
-/*END BACK TO TOP
+/*END BACK TO TOP*/
+.text-crimson{color: crimson;}
+/*MODO DARK*/
+body.dark{
+    background-color: #202020!important;
+    color: #b3b9c5!important;
+}
+nav.dark{
+    background-color: #131313!important;
+    color: #b3b9c5!important;
+}
+label.dark{color: #b3b9c5;}
+button.dark-switcher{
+    border: none;
+    background-color: transparent;
+}
+.theme-icon {
+    height: 24px;
+    width: 24px;
+    min-width: 24px;
+    margin-bottom: 0;
+}
+/*END MODO DARK*/

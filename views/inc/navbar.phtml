@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light border-bottom shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: #344D90;">
     <div class="container">
-        <a class="navbar-brand" href="index.php">PostsApp</a>
+        <a class="navbar-brand" href="index.php">Crim</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" style="border-color: transparent;">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,10 +10,11 @@
                 <li class="nav-item"><a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="about.php">Acerca</a></li>
             </ul>
+            <ul class="navbar-nav ml-auto">
+                <span class="navbar-text mr-sm-3 dark-switcher" title="Alternar modo oscuro" style="cursor: pointer;"><img class="theme-icon" src="img/dark-mode.svg"></span>
             <?php if (isset( $_SESSION['user_id'] )):
                 $user = getUser($_SESSION['user_id']);
             ?>
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">Perfil</a></li>
                 <span class="navbar-text mx-md-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
@@ -23,7 +24,6 @@
                 <button type="submit" class="btn btn-outline-primary my-2 my-sm-0 px-2 py-1">Salir</button>
             </form>
             <?php else: ?>
-            <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" href="register.php">Registrarse</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.php">Ingresar</a></li>
             </ul>

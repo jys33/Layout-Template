@@ -21,10 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	function showHide() {
 	    if (input.type === "password") {
 	        input.type = "text";
+	        input.focus();
 	        showPassword.textContent += '_off';
 	        //showPassword.textContent = "Ocultar";
 	    } else {
 	        input.type = "password";
+	        input.focus();
 	        showPassword.textContent = "visibility";
 	        // showPassword.textContent = "Mostrar";
 	    }
