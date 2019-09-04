@@ -19,18 +19,21 @@ document.addEventListener("DOMContentLoaded", () => {
 	let showPassword = document.querySelector('.showhidden');
 	let input = document.getElementById("password");
 	function showHide() {
+		let title;
 	    if (input.type === "password") {
 	        input.type = "text";
 	        input.focus();
-	        showPassword.textContent += '_off';
-	        //showPassword.textContent = "Ocultar";
+	        showPassword.textContent = 'visibility';
+	        title = "Ocultar";
 	    } else {
 	        input.type = "password";
 	        input.focus();
-	        showPassword.textContent = "visibility";
-	        // showPassword.textContent = "Mostrar";
+	        showPassword.textContent = "visibility_off";
+	        title = "Mostrar";
 	    }
+	    showPassword.setAttribute('title', title + ' contraseña');
 	}
+	
 	function checkInput(){
 	    if(input.value.length > 0){
 	        showPassword.style.display = "block";

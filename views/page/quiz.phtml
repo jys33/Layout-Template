@@ -1,0 +1,155 @@
+<style>
+    .option {
+        border: none;
+        border-radius: 0.125rem;
+        margin: 10px;
+        font-size: 18px;
+        padding: .375rem .75rem;
+        text-align: center;
+        background-color: #e7e7e7;
+        vertical-align: middle;
+        line-height: 1.5;
+    }
+    
+    .table td {
+        color: #e5e1ee;
+    }
+    
+    .section {
+        text-align: initial;
+        max-width: 600px;
+        margin: auto;
+        display: none;
+    }
+</style>
+<div class="container my-5 text-center">
+    <h1 class="mb-4">¡Ponte a prueba!</h1>
+    <section class="section">
+        <table class="table table-sm table-bordered table-striped">
+            <thead style="background-color: #dc143c;color: #fff;">
+                <tr>
+                    <th>GÉNERO</th>
+                    <th>ZURDOS</th>
+                    <th>DIESTROS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>FEMENINO</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>MASCULINO</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>TOTAL</td>
+                    <td>18</td>
+                    <td>122</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="lead">La tabla incompleta que está aquí arriba resume el número de estudiantes zurdos y diestros según el género en una escuela.
+            <br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
+    </section>
+
+    <h2 id="question"></h2>
+    <div id="options" class="my-4"></div>
+    <div>Preguntas correctas: <span id="correct"></span></div>
+</div>
+
+<audio autoplay id="theme-song">
+    <source src="js/nfl-theme-song-hq.mp3" type="audio/mpeg">
+</audio>
+<script>
+    const questions = [
+        {
+            question: 'Alberto, Benjamín y Carlota hicieron un total de 20 sándwiches. Benjamín hizo 3 veces más que Alberto, y Carlota hizo el doble que Benjamín. ¿Cuántos sándwiches hizo Alberto?',
+            options: ['2', '4', '5', '6', '10'],
+            answer: '2'
+        },
+        {
+            question: 'Si 10 + x es 5 más que 10, ¿Cuál es el valor de 2x?',
+            options: ['-5', '5', '10', '25', '50'],
+            answer: '10'
+        },
+        {
+            question: 'Si 3x - y = 12, ¿Cuál es el valor de 8<sup>x</sup> / 2<sup>y</sup>?',
+            options: ['2^12', '4^2', '8^2', 'No se puede determinar con la información dada'],
+            answer: '2^12'
+        },
+        {
+            question: '¿Qué número hace falta en esta secuencia? 4 9 16 25 <span style="color:red;">?</span> 64',
+            options: ['29', '33', '42', '49'],
+            answer: '49'
+        },
+        {
+            question: 'PERA es a MANZANA como PATATA es a:',
+            options: ['PLÁTANO', 'RÁBANO', 'FRESA', 'MELOCOTÓN', 'LECHUGA'],
+            answer: 'RÁBANO'
+        },
+        {
+            question: 'Si hay un total de 18 estudiantes zurdos y 122 estudiantes diestros en la escuela, ¿cuál de las siguientes opciones es la más cercana a la probabilidad de que al seleccionar al azar un estudiante sea mujer?',
+            options: ['0,410', '0,357', '0,333', '0,250'],
+            answer: '0,410'
+        },
+        // {
+        //     question: '¿Qué tipo de bucle siempre se ejecutará al menos una vez?',
+        //     options: ['for', 'while', 'do while'],
+        //     answer: 'do while'
+        // },
+        // {
+        //     question: '¿Cuál de los siguientes códigos de estado HTTP significa \'No encontrado\'?',
+        //     options: ['200', '403', '404', '500'],
+        //     answer: '200'
+        // }
+    ]
+
+    let question_number = 0;
+    let correct = 0;
+    let number_of_questions = questions.length;
+    let porcentaje = 0;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        load_question();
+    });
+
+    function load_question () {
+
+        document.querySelector('#question').innerHTML = questions[question_number].question;
+
+        let options = document.querySelector('#options');
+
+        document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
+
+        options.innerHTML = '';
+
+        questions[question_number].options.forEach(function (elt) {
+            options.innerHTML += `<button class="option" style="margin: 10px;">${elt}</button>`;
+        });
+
+        document.querySelectorAll('.option').forEach(function (button){
+            button.onclick = function () {
+                if(button.textContent == questions[question_number].answer) {
+                    correct++;
+                    porcentaje += 100 / number_of_questions;
+                    document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
+                }
+                question_number++;
+                if (questions[question_number] == questions[number_of_questions - 1]) {
+                    document.querySelector('.section').style.display = 'block';
+                } else {
+                    document.querySelector('.section').style.display = 'none';
+                }
+                if (question_number < number_of_questions) {
+                    load_question();
+                } else {
+                    options.innerHTML = '';
+                    document.querySelector('#question').innerHTML = `Tienes ${Math.round(porcentaje)}%`;
+                }
+            }
+        });
+    }
+</script>
