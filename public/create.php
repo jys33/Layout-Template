@@ -19,11 +19,11 @@ $data = [
 if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['descripcion']) )
 {
 	// Sanitizamos el array POST
-	$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+	// $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 	
-	// Trim all the incoming data: (quitamos los espacios en blanco de los datos entrantes)
-	$trimmed = array_map('trim', $_POST);
-	$_POST = preg_replace('/\s\s+/', ' ', $trimmed);
+	// $_POST = preg_replace('/\s\s+/', ' ', $trimmed);
+
+	$_POST = filter_post();
 
 	/*
 	 * Validamos el nombre

@@ -20,12 +20,8 @@ http://localhost/phpapp/public/update.php?id=2
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id'], $_POST['titulo'], $_POST['descripcion']) && filter_var($_POST['id'], FILTER_VALIDATE_INT) )
 {
-	// Sanitizamos el array POST
-	$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-	
-	// Trim all the incoming data: (quitamos los espacios en blanco de los datos entrantes)
-	$trimmed = array_map('trim', $_POST);
-	$_POST = preg_replace('/\s\s+/', ' ', $trimmed);
+	//$_POST = preg_replace('/\s\s+/', ' ', $trimmed);
+	$_POST = filter_post();
 
 	$data['id'] = $_POST['id'];
 

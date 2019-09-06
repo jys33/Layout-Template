@@ -59,22 +59,6 @@ label {
     height: calc(1.5em + 1rem + 2px);
     line-height: 1.15;
 }
-/*ICONS*/
-i.right {
-    float: right;
-    margin-left: 5px;
-}
-i.left {
-    float: left;
-    margin-right: 5px;
-}
-.left {
-    float: left!important;
-}
-.right {
-    float: right!important;
-}
-/*END ICONS*/
 
 .btn-lg {font-size: 1rem;}
 /*table */

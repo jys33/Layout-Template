@@ -295,3 +295,28 @@ function dateFormat($fecha) {
     $nombreMes = str_replace($meses_EN, $meses_ES, $mes);
     return $nombredia.", ".$numeroDia." de ".$nombreMes." de ".$anio . ' | ' . $exploded[1];
 }
+
+/**
+ * Get filtered $_POST values.
+ * Return an array.
+ */
+function filter_post()
+{
+    $post = filter_input_array(INPUT_POST);
+    $post = array_map('trim', $post);
+    $post = array_map('stripslashes', $post);
+    $post = array_map('htmlspecialchars', $post);
+    return $post;
+}
+/**
+ * Get filtered $_GET values.
+ * Return an array.
+ */
+function filter_get()
+{
+    $get = filter_input_array(INPUT_GET);
+    $get = array_map('trim', $get);
+    $get = array_map('stripslashes', $get);
+    $get = array_map('htmlspecialchars', $get);
+    return $get;
+}

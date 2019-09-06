@@ -15,8 +15,9 @@ $data = [
 
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
+    
     // Sanitizamos el array POST
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    $_POST = filter_post();
 
     /**
      * Chequeamos el email

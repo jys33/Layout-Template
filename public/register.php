@@ -26,12 +26,9 @@ $data = [
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'], $_POST['usuario'], $_POST['nombre'], $_POST['apellido'], $_POST['password'], $_POST['confirm_password']) )
 {
+    //$_POST = preg_replace('/\s\s+/', ' ', $trimmed);
     // Sanitizamos el array POST
-    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-    // Trim all the incoming data: (quitamos los espacios en blanco de los datos entrantes)
-    $trimmed = array_map('trim', $_POST);
-    $_POST = preg_replace('/\s\s+/', ' ', $trimmed);
+    $_POST = filter_post();
 
     /**
      * Validamos el email y comprobamos si no existe en la base de datos

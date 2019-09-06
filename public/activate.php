@@ -15,13 +15,11 @@ if (
 	filter_var($_GET['email'], FILTER_VALIDATE_EMAIL) && 
 	(strlen($_GET['key']) == 32 )
 ) {
-	// Sanitize Get data
-	$_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
-	// Trim all the incoming data:
-	$trimmed = array_map('trim', $_GET);
-	$email = $trimmed['email'];
-	$token = $trimmed['key'];
+	$_GET = filter_get();
+
+	$email = $_GET['email'];
+	$token = $_GET['key'];
 
 	$activate_success = query("UPDATE user SET token='activated' WHERE (useremail=? AND token=?) LIMIT 1", $email, $token);
 
