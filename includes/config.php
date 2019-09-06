@@ -15,7 +15,7 @@ require("functions.php");
 session_start();
 
 // require authentication for most pages
-if (!preg_match("{(?:login|logout|register|forgot_password|index|about|reset_password)\.php$}", $_SERVER["PHP_SELF"]))
+if (!preg_match("{(?:login|logout|register|forgot_password|index|about|reset_password|quiz)\.php$}", $_SERVER["PHP_SELF"]))
 {
     if (empty($_SESSION["user_id"]))
     {

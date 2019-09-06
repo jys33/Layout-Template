@@ -3,18 +3,18 @@
         border: none;
         border-radius: 0.125rem;
         margin: 10px;
-        font-size: 18px;
-        padding: .375rem .75rem;
+
+        padding: .5rem 1rem;
+        font-size: 1.25rem;
+        line-height: 1.5;
+
         text-align: center;
         background-color: #e7e7e7;
         vertical-align: middle;
-        line-height: 1.5;
     }
     
-    .table td {
-        color: #e5e1ee;
-    }
-    
+    .table tr{color: #6400e4;}
+
     .section {
         text-align: initial;
         max-width: 600px;
@@ -23,46 +23,49 @@
     }
 </style>
 <div class="container my-5 text-center">
-    <h1 class="mb-4" class="h2">¡Ponte a prueba!</h1>
+    <h1 class="mb-4 text-crimson">Test</h1>
     <section class="section">
-        <table class="table table-sm table-bordered table-striped">
-            <thead style="background-color: #dc143c;color: #fff;">
-                <tr>
-                    <th>GÉNERO</th>
-                    <th>ZURDOS</th>
-                    <th>DIESTROS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>FEMENINO</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>MASCULINO</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>TOTAL</td>
-                    <td>18</td>
-                    <td>122</td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="lead">La tabla incompleta que está aquí arriba resume el número de estudiantes zurdos y diestros según el género en una escuela.
-            <br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
+        <div class="table-responsive-md">
+            <table class="table table-sm table-bordered table-striped">
+                <thead class="">
+                    <tr>
+                        <th>GÉNERO</th>
+                        <th>ZURDOS</th>
+                        <th>DIESTROS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>FEMENINO</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>MASCULINO</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td>18</td>
+                        <td>122</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <p class="">La tabla incompleta que está aquí arriba resume el número de estudiantes zurdos y diestros según el género en una escuela.<br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
     </section>
 
     <h2 id="question" class="h3"></h2>
     <div id="options" class="my-4"></div>
-    <div>Preguntas correctas: <span id="correct"></span></div>
+    <p class="" style="font-size: 18px;">Preguntas correctas: <span id="correct"></span></p>
 </div>
 
 <audio autoplay id="theme-song">
     <source src="js/nfl-theme-song-hq.mp3" type="audio/mpeg">
 </audio>
+
 <script>
     const questions = [
         {
@@ -128,26 +131,31 @@
         options.innerHTML = '';
 
         questions[question_number].options.forEach(function (elt) {
-            options.innerHTML += `<button class="option" style="margin: 10px;">${elt}</button>`;
+            options.innerHTML += `<button class="option">${elt}</button>`;
         });
 
         document.querySelectorAll('.option').forEach(function (button){
-            button.onclick = function () {
+
+            button.onclick = () => {
+
                 if(button.textContent == questions[question_number].answer) {
                     correct++;
                     percent += percent_to_each_question;
                     document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
                 }
+
                 question_number++;
+
                 if (questions[question_number] == questions[number_of_questions - 1]) {
                     document.querySelector('.section').style.display = 'block';
                 } else {
                     document.querySelector('.section').style.display = 'none';
                 }
+
                 if (question_number < number_of_questions) {
                     load_question();
                 } else {
-                    options.innerHTML = '';
+                    options.innerHTML = `<a href="quiz.php" class="btn btn-primary">Practica otra vez</a>`;
                     document.querySelector('#question').innerHTML = `Tienes ${Math.round(percent)}%`;
                 }
             }

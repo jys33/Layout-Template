@@ -12,10 +12,10 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <span class="navbar-text mr-sm-3 dark-switcher" title="Alternar modo oscuro" style="cursor: pointer;"><img class="theme-icon" src="img/dark-mode.svg"></span>
+                <li class="nav-item"><a class="nav-link" href="quiz.php">Ponte a prueba</a></li>
             <?php if (isset( $_SESSION['user_id'] )):
                 $user = getUser($_SESSION['user_id']);
             ?>
-                <li class="nav-item"><a class="nav-link" href="quiz.php">Test</a></li>
                 <li class="nav-item"><a class="nav-link" href="index.php">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">Perfil</a></li>
                 <span class="navbar-text mx-md-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
