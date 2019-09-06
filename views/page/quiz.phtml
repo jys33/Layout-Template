@@ -23,7 +23,7 @@
     }
 </style>
 <div class="container my-5 text-center">
-    <h1 class="mb-4">¡Ponte a prueba!</h1>
+    <h1 class="mb-4" class="h2">¡Ponte a prueba!</h1>
     <section class="section">
         <table class="table table-sm table-bordered table-striped">
             <thead style="background-color: #dc143c;color: #fff;">
@@ -55,7 +55,7 @@
             <br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
     </section>
 
-    <h2 id="question"></h2>
+    <h2 id="question" class="h3"></h2>
     <div id="options" class="my-4"></div>
     <div>Preguntas correctas: <span id="correct"></span></div>
 </div>
@@ -103,14 +103,15 @@
         // {
         //     question: '¿Cuál de los siguientes códigos de estado HTTP significa \'No encontrado\'?',
         //     options: ['200', '403', '404', '500'],
-        //     answer: '200'
+        //     answer: '404'
         // }
     ]
 
     let question_number = 0;
     let correct = 0;
     let number_of_questions = questions.length;
-    let porcentaje = 0;
+    let percent = 0;
+    let percent_to_each_question = 100 / number_of_questions;
 
     document.addEventListener('DOMContentLoaded', function () {
         load_question();
@@ -134,7 +135,7 @@
             button.onclick = function () {
                 if(button.textContent == questions[question_number].answer) {
                     correct++;
-                    porcentaje += 100 / number_of_questions;
+                    percent += percent_to_each_question;
                     document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
                 }
                 question_number++;
@@ -147,7 +148,7 @@
                     load_question();
                 } else {
                     options.innerHTML = '';
-                    document.querySelector('#question').innerHTML = `Tienes ${Math.round(porcentaje)}%`;
+                    document.querySelector('#question').innerHTML = `Tienes ${Math.round(percent)}%`;
                 }
             }
         });
