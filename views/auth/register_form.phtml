@@ -34,7 +34,7 @@
             <input class="form-control <?= empty($confirm_password_err) ? '' : 'is-invalid' ?>" type="password" name="confirm_password" maxLength="32"/>
             <div class="invalid-feedback"><?= htmlspecialchars($confirm_password_err) ?></div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg mb-4">Registrar</button>
+        <button type="button" class="btn btn-primary btn-block btn-lg mb-4" onclick="this.disabled=true; this.value='Enviando...'; this.form.submit()">Registrar</button>
     </form>
     <p class="text-muted text-center small mb-2">¿Ya tienes una cuenta? <a href="login.php">Iniciar sesión</a></p>
 </section>

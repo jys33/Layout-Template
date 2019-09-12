@@ -54,9 +54,9 @@ if ( $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo'], $_POST['des
 	{
 	    $data['descripcion'] = $_POST['descripcion'];
 
-	    if (!preg_match('/^[a-zA-Z-ZáéíóúÁÉÍÓÚÑñÜü0-9\s.!¡;,:¿?()]+$/', $data['descripcion'])) {
-	    	$data['descripcion_err'] = 'La descripción solo debe incluir letras, algunos signos ortográficos, números y espacios en blanco.';
-	    }
+	    // if (!preg_match('/^[a-zA-Z-ZáéíóúÁÉÍÓÚÑñÜü0-9\s.!¡;,:¿?()]+$/', $data['descripcion'])) {
+	    // 	$data['descripcion_err'] = 'La descripción solo debe incluir letras, algunos signos ortográficos, números y espacios en blanco.';
+	    // }
 	}
 
 	// Si todo esta OKAY

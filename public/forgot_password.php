@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])){
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
             $headers .= 'From:PHPApp <noreply@eduoffyoucode.com>' . "\r\n";
             $message = "Para restablecer su contraseña haga click en el siguiente enlace:\n\n";
-            $message .= '<p><a href="'. BASE_URL . "/reset_password.php?user_id=" . $user_id . "&key=" . $key.'">Restablecer contraseña</a></p><p>El enlace expirará en 24 horas.</p>';
+            $message .= '<p><a href="'. BASE_URL . "/reset_password.php?user_id=" . urlencode($user_id) . "&key=" . urldecode($key) .'">Restablecer contraseña</a></p><p>El enlace expirará en 24 horas.</p>';
             if( mail($to, $subject , $message, $headers) ) {
                 $data['message'] = 'Se ha enviado un correo electrónico de restablecimiento de contraseña a la dirección de correo electrónico registrada en su cuenta, pero puede tardar varios minutos en aparecer en su bandeja de entrada. Espere al menos 10 minutos antes de intentar otro reinicio.';
                 $data['success'] = 'Correo electrónico de restablecimiento de contraseña enviado.';

@@ -19,7 +19,7 @@ $data = [
 // if form was submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && 
 	isset($_POST['id'], $_POST['key'], $_POST['password'], $_POST['confirm_password']) && 
-	filter_var($_POST['id'], FILTER_VALIDATE_INT) && (strlen($_POST['key']) == 32 )) {
+	filter_var($_POST['id'], FILTER_VALIDATE_INT) && (strlen($_POST['key']) == 32 ) ) {
 	
     // Sanitize post data
     $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
