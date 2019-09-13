@@ -1,7 +1,7 @@
 <section style="width: 100%;max-width: 570px; margin: auto;padding: 0.625rem;">
     <div class="text-center">
         <h1 class="mb-3 text-crimson">Información de la cuenta</h1>
-        <p class="mb-4 text-muted fs-14">Cambia tu nombre, apellido, usuario o contraseña.</p>
+        <p class="mb-4 text-muted fs-14">Actualiza tu nombre, apellido, usuario o contraseña.</p>
     </div>
     <form class="needs-validation" action="profile.php" method="POST">
         <div class="form-row">
@@ -21,7 +21,7 @@
             <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
             <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
         </div>
-        <button type="submit" class="btn btn-outline-primary btn-block btn-lg mb-4" name="save_details">Guardar</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg mb-4" name="save_details">Guardar</button>
         <hr class="my-5">
         <div class="form-group">
             <label for="password_actual">Contraseña actual</label>
@@ -40,6 +40,6 @@
             <div class="invalid-feedback"><?= htmlspecialchars($password_2_err) ?></div>
         </div>
         <input type="hidden" name="id" value="<?= $id ?>" readonly onmousedown="return false;">
-        <button type="submit" class="btn btn-outline-primary btn-block btn-lg" name="save_password">Guardar contraseña</button>
+        <button type="submit" class="btn btn-primary btn-block btn-lg" name="save_password">Guardar contraseña</button>
     </form>
 </section>

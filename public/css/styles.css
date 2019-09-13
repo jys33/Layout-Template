@@ -133,13 +133,18 @@ table {font-size: .875rem;}/*14px*/
 /*MODO DARK*/
 body.dark{
     background-color: #202020!important;
-    color: #b3b9c5!important;
+    /*background-color: rgb(50, 54, 57);*/
+    /*color: #b3b9c5!important;*/
+    color: rgb(232, 234, 237);
 }
 nav.dark{
     background-color: #131313!important;
-    color: #b3b9c5!important;
+    /*background-color: rgb(50, 54, 57);*/
+    color: rgb(232, 234, 237);
+    /*color: #b3b9c5!important;*/
 }
-label.dark{color: #b3b9c5;}
+label.dark{color: rgb(232, 234, 237);}
+
 button.dark-switcher{
     border: none;
     background-color: transparent;
