@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Si el formulario es de registro
         if (email && usuario && nombre && apellido && password && confirm_password) {
+            alert(3)
             nombre.onpaste = evt => false;
             nombre.ondragover = evt => false;
             apellido.onpaste = evt => false;

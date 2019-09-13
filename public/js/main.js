@@ -1,20 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-	// Ejemplo 1: Traductor
-	// let headingEl = document.querySelector('#translate');
-	// let temp = headingEl.textContent;
-	// let btnEl = document.querySelector('.translate-btn');
-
-	// function translateTitle(event) {
-	//     //console.log(this);
-	//     if (headingEl.textContent == 'Usuarios Registrados') {
-	//         headingEl.textContent = temp;
-	//     } else {
-	//        headingEl.textContent = 'Usuarios Registrados'; 
-	//     }
-	// }
-
-	// btnEl.onclick = translateTitle;
-
 	// Ejemplo 4: Show/Hide Password
 	let showPassword = document.querySelector('.showhidden');
 	let input = document.getElementById("password");
