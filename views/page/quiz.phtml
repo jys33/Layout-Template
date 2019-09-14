@@ -122,11 +122,11 @@
 
     function load_question () {
 
-        document.querySelector('#question').innerHTML = questions[question_number].question;
+        querySelector('#question').innerHTML = questions[question_number].question;
 
-        let options = document.querySelector('#options');
+        let options = querySelector('#options');
 
-        document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
+        querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
 
         options.innerHTML = '';
 
@@ -141,24 +141,28 @@
                 if(button.textContent == questions[question_number].answer) {
                     correct++;
                     percent += percent_to_each_question;
-                    document.querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
+                    querySelector('#correct').innerHTML = `${correct} de ${number_of_questions}`;
                 }
 
                 question_number++;
 
                 if (questions[question_number] == questions[number_of_questions - 1]) {
-                    document.querySelector('.section').style.display = 'block';
+                    querySelector('.section').style.display = 'block';
                 } else {
-                    document.querySelector('.section').style.display = 'none';
+                    querySelector('.section').style.display = 'none';
                 }
 
                 if (question_number < number_of_questions) {
                     load_question();
                 } else {
                     options.innerHTML = `<a href="quiz.php" class="btn btn-primary">Practica otra vez</a>`;
-                    document.querySelector('#question').innerHTML = `Tienes ${Math.round(percent)}%`;
+                    querySelector('#question').innerHTML = `Tienes ${Math.round(percent)}%`;
                 }
             }
         });
+
+        function querySelector(el) {
+            return document.querySelector(el);
+        }
     }
 </script>
