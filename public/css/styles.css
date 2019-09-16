@@ -55,12 +55,11 @@ label {
 .form-footer>:not(:first-child) {margin-left: .25rem;}
 
 .form-control:focus {border-color: #2188ff;}
-.form-control {
-    height: calc(1.5em + 1rem + 2px);
-    line-height: 1.15;
+.form-control, .btn-lg{
+    height: calc(1.5em + 1.5rem + 2px);
+    font-size: 1rem;
 }
 
-.btn-lg {font-size: 1rem;}
 /*table */
 table {font-size: .875rem;}/*14px*/
 

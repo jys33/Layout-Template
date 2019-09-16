@@ -107,4 +107,96 @@ document.addEventListener("DOMContentLoaded", () => {
 	    if (classList.length > 1) removeClass(el, classList.slice(1).join(' '));
 	}
 	// End Back to Top
+	// 
+	let dark_switcher = document.querySelector('.dark-switcher');
+	let icon = document.querySelector('.theme-icon');
+	let list = document.getElementsByTagName("label");
+	let n = list.length;
+
+	if (localStorage.getItem("mode") === "dark") {
+	    showDarkItems();
+	    icon.src = 'img/light-mode.svg';
+	}
+	else {
+	    icon.src = 'img/dark-mode.svg';
+	    showLightItems();
+	}
+
+	dark_switcher.onclick = function (){
+	    let src = icon.getAttribute('src');
+	    if (src == 'img/dark-mode.svg') {
+	        localStorage.setItem("mode", "dark");
+	        src = 'img/light-mode.svg';
+	        showDarkItems();
+	    } else {
+	        localStorage.setItem("mode", "light");
+	        src = 'img/dark-mode.svg';
+	        showLightItems();
+	    }
+	    icon.setAttribute('src', src);
+	}
+
+	function showDarkItems() {
+	    icon.alt = "Light Mode";
+	    // document.querySelector('.navbar').classList.remove('navbar-light');
+	    // document.querySelector('.navbar').classList.add('navbar-dark');
+	    document.body.classList.add('dark');
+	    document.getElementsByTagName("footer")[0].classList.add("dark");
+	    document.getElementsByTagName("nav")[0].classList.add("dark");
+	    for(let i = 0; i < n; i++){
+	        list[i].classList.add("dark");
+	    }
+	}
+	function showLightItems() {
+	    icon.alt = "Dark Mode";
+	    // document.querySelector('.navbar').classList.remove('navbar-dark');
+	    // document.querySelector('.navbar').classList.add('navbar-light');
+	    document.body.classList.remove("dark");
+	    document.getElementsByTagName("footer")[0].classList.remove("dark");
+	    document.getElementsByTagName("nav")[0].classList.remove("dark");
+	    for(let i = 0; i < n; i++){
+	        list[i].classList.remove("dark");
+	    }
+	}
 });
+
+function allow(elEvento, permitidos) {
+    // Variables que definen los caracteres permitidos
+    var numeros = '0123456789';
+    var caracteres = ' abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ';
+    var numeros_caracteres = numeros + caracteres;
+    var teclas_especiales = [8, 37, 39, 46];
+    // 8 = BackSpace, 46 = Supr, 37 = flecha izquierda, 39 = flecha derecha
+
+    // Seleccionar los caracteres a partir del parámetro de la función
+    switch (permitidos) {
+        case 'num':
+            permitidos = numeros;
+            break;
+        case 'car':
+            permitidos = caracteres;
+            break;
+        case 'num_car':
+            permitidos = numeros_caracteres;
+            break;
+    }
+
+    // Obtener la tecla pulsada
+    var evento = elEvento || window.event;
+    var codigoCaracter = evento.charCode || evento.keyCode;
+    var caracter = String.fromCharCode(codigoCaracter);
+
+    // Comprobar si la tecla pulsada es alguna de las teclas especiales
+    // (teclas de borrado y flechas horizontales)
+    var tecla_especial = false;
+    for (var i in teclas_especiales) {
+        if (codigoCaracter == teclas_especiales[i]) {
+            tecla_especial = true;
+            break;
+        }
+    }
+
+    // Comprobar si la tecla pulsada se encuentra en los caracteres permitidos
+    // o si es una tecla especial
+    return permitidos.indexOf(caracter) != -1 || tecla_especial;
+}

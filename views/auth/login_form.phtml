@@ -1,6 +1,6 @@
 <section style="width: 100%;max-width: 380px;margin: auto;padding: 0.625rem;">
     <h1 class="mb-4 text-center text-crimson">Iniciar sesión</h1>
-    <form class="needs-validation" method="POST">
+    <form class="needs-validation" method="POST" name="login">
         <div class="form-group">
             <label for="email">Email</label>
             <input class="form-control <?= empty($email_err) ? '' : 'is-invalid' ?>" type="email" name="email" autocomplete="off" maxlength="50" value="<?= htmlspecialchars( $email ) ?>"/>
