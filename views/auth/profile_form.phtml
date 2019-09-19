@@ -3,43 +3,87 @@
         <h1 class="mb-3 text-crimson">Información de la cuenta</h1>
         <p class="mb-4 text-muted fs-14">Actualiza tu nombre, apellido, usuario o contraseña.</p>
     </div>
-    <form class="needs-validation" action="profile.php" method="POST">
+    <form class="profile" action="profile.php" method="POST" name="profile">
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="firstName">Nombre <span class="required">*</span></label>
-                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" type="text" name="nombre" value="<?= htmlspecialchars( $nombre ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                <label for="nombre">Nombre <span class="required">*</span></label>
+                <input class="form-control <?= empty($nombre_err) ? '' : 'is-invalid' ?>" id="nombre" type="text" name="nombre" value="<?= htmlspecialchars( $nombre ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
                 <div class="invalid-feedback"><?= htmlspecialchars($nombre_err) ?></div>
             </div>
             <div class="form-group col-md-6">
-                <label for="lastName">Apellido <span class="required">*</span></label>
-                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" type="text" name="apellido" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
+                <label for="apellido">Apellido <span class="required">*</span></label>
+                <input class="form-control <?= empty($apellido_err) ? '' : 'is-invalid' ?>" id="apellido" type="text" name="apellido" value="<?= htmlspecialchars( $apellido ) ?>" maxlength="32" autocomplete="off" onkeypress="return allow(event, 'car')"/>
                 <div class="invalid-feedback"><?= htmlspecialchars($apellido_err) ?></div>
             </div>
         </div>
         <div class="form-group mb-4">
             <label for="usuario">Usuario <span class="required">*</span></label>
-            <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
+            <input class="form-control <?= empty($usuario_err) ? '' : 'is-invalid' ?>" id="usuario" type="text" name="usuario" value="<?= htmlspecialchars( $usuario ) ?>" maxlength="20" autocomplete="off"/>
             <div class="invalid-feedback"><?= htmlspecialchars($usuario_err) ?></div>
         </div>
         <button type="submit" class="btn btn-primary btn-block btn-lg mb-4" name="save_details">Guardar</button>
         <hr class="my-5">
         <div class="form-group">
             <label for="password_actual">Contraseña actual</label>
-            <input class="form-control <?= empty($password_actual_err) ? '' : 'is-invalid' ?>" type="password" name="password_actual" maxlength="32" />
+            <input class="form-control <?= empty($password_actual_err) ? '' : 'is-invalid' ?>" id="password_actual" type="password" name="password_actual" maxlength="32" />
             <div class="invalid-feedback"><?= htmlspecialchars($password_actual_err) ?></div>
         </div>
         <div class="form-group">
             <label for="password_1">Nueva contraseña</label>
             <small id="passwordHelpBlock" class="form-text text-muted mb-1 mt-0">Las contraseñas deben tener por lo menos 8 caracteres y tener una combinación de letras, números y otros caracteres.</small>
-            <input class="form-control <?= empty($password_1_err) ? '' : 'is-invalid' ?>" type="password" name="password_1" maxLength="32" aria-describedby="passwordHelpBlock"/>
+            <input class="form-control <?= empty($password_1_err) ? '' : 'is-invalid' ?>" id="password_1" type="password" name="password_1" maxLength="32" aria-describedby="passwordHelpBlock"/>
             <div class="invalid-feedback"><?= htmlspecialchars($password_1_err) ?></div>
         </div>
         <div class="form-group mb-4">
             <label for="password_2">Confirmar nueva contraseña</label>
-            <input class="form-control <?= empty($password_2_err) ? '' : 'is-invalid' ?>" type="password" name="password_2" maxLength="32"/>
+            <input class="form-control <?= empty($password_2_err) ? '' : 'is-invalid' ?>" id="password_2" type="password" name="password_2" maxLength="32"/>
             <div class="invalid-feedback"><?= htmlspecialchars($password_2_err) ?></div>
         </div>
         <input type="hidden" name="id" value="<?= $id ?>" readonly onmousedown="return false;">
         <button type="submit" class="btn btn-primary btn-block btn-lg" name="save_password">Guardar contraseña</button>
     </form>
 </section>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let profile = new FormValidator('profile', [
+        {
+            name: 'nombre',
+            display: 'nombre',
+            rules: 'required|alpha|min_length[3]|max_length[50]'
+        }, {
+            name: 'apellido',
+            display: 'apellido',
+            rules: 'required|alpha|min_length[3]|max_length[50]'
+        }, {
+            name: 'usuario',
+            display: 'usuario',
+            rules: 'required|alpha_numeric|min_length[3]|max_length[50]'
+        }, {
+            name: 'password_actual',
+            display: 'contraseña actual',
+            rules: 'required|max_length[50]'
+        }, {
+            name: 'password_1',
+            display: 'nueva contraseña',
+            rules: 'required|min_length[8]|max_length[50]'
+        }, {
+            name: 'password_2',
+            display: 'confirmar nueva contraseña',
+            rules: 'required|matches[password_1]|max_length[50]'
+        }], function(errors, evt) {
+            if (errors.length > 0) {
+                let N = errors.length;
+                for (let i = 0; i < N; i++) {
+                    errors[i].element.classList.add('is-invalid');
+                    errors[i].element.nextElementSibling.innerHTML = errors[i].message;
+                }
+                errors[0].element.focus();
+                evt.preventDefault();
+            } else {
+                disabledBtn();
+            }
+        });
+
+    });
+</script> -->

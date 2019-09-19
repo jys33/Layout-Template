@@ -1,19 +1,46 @@
 <section style="padding: 0.625rem;">
 	<h1 class="text-crimson mb-4">Nuevo Post</h1>
-	<form action="create.php" method="POST">
+	<form action="create.php" method="POST" name="newpost">
 	    <div class="form-group">
 	        <label for="titulo">Título</label>
-	        <input type="text" name="titulo" class="form-control <?= empty($titulo_err) ? '' : 'is-invalid' ?>" id="" maxlength="100" value="<?= htmlspecialchars( $titulo ) ?>" />
+	        <input type="text" name="titulo" class="form-control <?= empty($titulo_err) ? '' : 'is-invalid' ?>" id="titulo" maxlength="100" value="<?= htmlspecialchars( $titulo ) ?>" />
 	        <div class="invalid-feedback"><?= htmlspecialchars($titulo_err) ?></div>
 	    </div>
 	    <div class="form-group">
 	        <label for="descripcion">Descripción</label>
-	        <textarea name="descripcion" class="form-control <?= empty($descripcion_err) ? '' : 'is-invalid' ?>" id="" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
+	        <textarea name="descripcion" class="form-control <?= empty($descripcion_err) ? '' : 'is-invalid' ?>" id="descripcion" rows="5"><?= htmlspecialchars( $descripcion ) ?></textarea>
 	        <div class="invalid-feedback"><?= htmlspecialchars($descripcion_err) ?></div>
 	    </div>
 	    <div class="form-footer">
-	    	<button type="button" class="btn btn-primary" onclick="this.disabled=true; this.value='Enviando...'; this.form.submit()">Guardar<i class="material-icons float-right">chevron_right</i></button>
+	    	<button id="btn" type="submit" class="btn btn-primary">Guardar<i class="material-icons float-right">chevron_right</i></button>
 	    	<a href="index.php" class="btn btn-light" title="Volver a la lista."><i class="material-icons float-left">fast_rewind</i>Volver</a>
 	    </div>
 	</form>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let newpost = new FormValidator('newpost', [
+        {
+            name: 'titulo',
+            display: 'título',
+            rules: 'required|alpha|max_length[100]'
+        }, {
+            name: 'descripcion',
+            display: 'descripción',
+            rules: 'required'
+        }], function(errors, evt) {
+            if (errors.length > 0) {
+                let N = errors.length;
+                for (let i = 0; i < N; i++) {
+                    errors[i].element.classList.add('is-invalid');
+                    errors[i].element.nextElementSibling.innerHTML = errors[i].message;
+                }
+                errors[0].element.focus();
+                evt.preventDefault();
+            } else {
+                disabledBtn();
+            }
+        });
+    });
+</script>

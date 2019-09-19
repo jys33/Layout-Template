@@ -1,37 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-	// Ejemplo 4: Show/Hide Password
-	let showPassword = document.querySelector('.showhidden');
-	let input = document.getElementById("password");
-	function showHide() {
-		let title;
-	    if (input.type === "password") {
-	        input.type = "text";
-	        input.focus();
-	        showPassword.textContent = 'visibility';
-	        title = "Ocultar";
-	    } else {
-	        input.type = "password";
-	        input.focus();
-	        showPassword.textContent = "visibility_off";
-	        title = "Mostrar";
-	    }
-	    showPassword.setAttribute('title', title + ' contraseña');
-	}
 	
-	function checkInput(){
-	    if(input.value.length > 0){
-	        showPassword.style.display = "block";
-	    } else {
-	        showPassword.style.display = "none";
-	    }
-	}
-
-	if (input) {
-		input.onfocus = checkInput;
-		input.oninput = checkInput;
-		showPassword.onclick = showHide;
-	}
-
 	// Back to Top - by CodyHouse.co
 	var backTop = document.getElementsByClassName('js-cd-top')[0],
 	    // browser window scroll (in pixels) after which the "back to top" link is shown
