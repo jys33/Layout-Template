@@ -52,9 +52,8 @@
                     </tr>
                 </tbody>
             </table>
+            <p class="">La tabla incompleta que está aquí arriba resume el número de estudiantes zurdos y diestros según el género en una escuela.<br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
         </div>
-        
-        <p class="">La tabla incompleta que está aquí arriba resume el número de estudiantes zurdos y diestros según el género en una escuela.<br>Hay 5 veces más estudiantes mujeres diestras que zurdas, y hay 9 veces más estudiantes hombres diestros que zurdos.</p>
     </section>
 
     <h2 id="question" class="h3"></h2>
@@ -116,8 +115,11 @@
     let percent = 0;
     let percent_to_each_question = 100 / number_of_questions;
 
+    
     document.addEventListener('DOMContentLoaded', function () {
         load_question();
+        // shuffle(questions);
+        console.log(questions);
     });
 
     function load_question () {
@@ -160,9 +162,20 @@
                 }
             }
         });
+    }
 
-        function querySelector(el) {
-            return document.querySelector(el);
+    function querySelector(el) {
+        return document.querySelector(el);
+    }
+
+    function shuffle(array) {
+        let n = array.length;
+        // Shuffling an array (Barajando una matriz)
+        for (let i = 0; i < n; i++) {
+            let r = i + Math.floor( (Math.random() * (n - i)) );
+            let temp = array[i];
+            array[i] = array[r];
+            array[r] = temp;
         }
     }
 </script>
