@@ -1,7 +1,7 @@
 INSERT INTO user (user_id, last_name, first_name, user_name, user_email, password, activation, created_on, last_modified_on)
 VALUES
   (NULL, 'John', 'Doe', 'johndoe', 'johndoe@gmail.com', '$2y$10$N6TBjabtWrYsTFAMnJyCVuVv.uO6cI074B8ok5W.S7uZ5FdoC1hPW', 'activated' , NOW(), NOW()),
-  (NULL, 'Jeff', 'Doe', 'jeffdoe', 'jeffdoe@gmail.com', '$2y$10$N6TBjabtWrYsTFAMnJyCVuVv.uO6cI074B8ok5W.S7uZ5FdoC1hPW', 'activated' , NOW(), NOW());
+  (NULL, 'Jeff', 'Doe', 'jeffsmith', 'jeffsmith@gmail.com', '$2y$10$N6TBjabtWrYsTFAMnJyCVuVv.uO6cI074B8ok5W.S7uZ5FdoC1hPW', 'activated' , NOW(), NOW());
 
 INSERT INTO post (title, body, author_id, created_on, last_modified_on)
 VALUES

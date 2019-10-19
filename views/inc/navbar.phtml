@@ -11,24 +11,22 @@
                 <li class="nav-item"><a class="nav-link" href="quiz.php">Ponte a prueba</a></li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <span class="navbar-text mr-sm-2 dark-switcher" title="Alternar modo oscuro" style="cursor: pointer;"><img class="theme-icon mb-1" src="img/dark-mode.svg"></span>
-                
             <?php if (isset( $_SESSION['user_id'] )):
                 $user = getUser($_SESSION['user_id']);
             ?>
                 <li class="nav-item"><a class="nav-link" href="index.php">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">Perfil</a></li>
-                <span class="navbar-text mr-sm-3 ml-sm-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
-                <!-- <li class="nav-item"><a class="nav-link" href="logout.php">Salir</a></li> -->
-            </ul>
-            <form class="form-inline my-2 my-lg-0" action="logout.php" method="POST">
-                <button type="submit" class="btn btn-primary my-2 my-sm-0 px-2 py-1" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</button>
-            </form>
+                <span class="navbar-text mr-sm-2 ml-sm-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
+                <li class="nav-item"><a class="nav-link" href="logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a></li>
             <?php else: ?>
                 <li class="nav-item"><a class="nav-link" href="register.php">Registrarse</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.php">Ingresar</a></li>
-            </ul>
             <?php endif ?>
+                <li class="nav-item">
+                    <button class="nav-link dark-switcher" title="Toggle Dark Mode"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTI4IDEyODsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogIDxwYXRoIGQ9Ik0xMDUuODcsMTQuOTljLTMuNzQtMy4zOS03LjkxLTYuMzgtMTIuNDItOC44OWMtMC44Ny0wLjQ5LTItMC4zNS0yLjcxLDAuMzMgYy0wLjcxLDAuNjgtMC44MywxLjczLTAuMjksMi41M2MxNS42MywyMi45MywxMi4yOSw1Mi41Mi04LjExLDcxLjk3Yy0xMS45LDExLjM1LTI3Ljg1LDE3LjYtNDQuOTEsMTcuNiBjLTExLjM5LDAtMjIuNTQtMi44Ni0zMi4yNC04LjI3Yy0wLjg3LTAuNDktMi0wLjM2LTIuNzEsMC4zM2MtMC43MSwwLjY4LTAuODMsMS43Mi0wLjI4LDIuNTNjMi44MSw0LjEyLDYuMTIsNy45Myw5Ljg2LDExLjMyIGMxMi42MSwxMS40NSwyOS4yNywxNy43Niw0Ni45LDE3Ljc2YzE4LjI3LDAsMzUuMzQtNi43LDQ4LjA5LTE4Ljg2YzEyLjUzLTExLjk0LDE5LjMxLTI3LjcxLDE5LjA5LTQ0LjQgQzEyNS45Miw0Mi4yNSwxMTguNzIsMjYuNjQsMTA1Ljg3LDE0Ljk5eiIgc3R5bGU9ImZpbGw6I0ZDQzIxQjsiLz4KPC9zdmc+" class="theme-icon" alt="Dark Mode">
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

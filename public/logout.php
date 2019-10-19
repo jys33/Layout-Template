@@ -2,7 +2,7 @@
 
 require("../includes/config.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_SESSION['user_id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_SESSION['user_id'])) {
 	// log out current user, if any
 	logout();
 

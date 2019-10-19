@@ -24,14 +24,29 @@
 }
 
 /*.material-icons{font-size: 1.125rem;}/*18px*/
-.visibility {
-    position: absolute;
-    top: 50%;
-    right: 14px;
-    cursor: pointer;
-    color: #343a40;
+/*Visibilidad de contraseña*/
+.show-password {
     display: none;
+    height: 20px;
+    position: absolute;
+    right: 12px;
+    top: 50px;
+    transform: translateY(-50%);
+    width: 20px;
 }
+.show-pass {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: 0;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    width: 20px;
+}
+.show-pass:focus{outline: none;}
+.password-icon{color: #7F8C8D;}
+/*Fin visibilidad de contraseña*/
 section h1{font-size: 2.125rem;}/*34px*/
 label {
     font-size: 14px;
@@ -123,12 +138,30 @@ table {font-size: .875rem;}/*14px*/
 }
 /*END BACK TO TOP*/
 .text-crimson{color: crimson;}
+
+/*MODO DARK*/
+/* Correspondiente al cambio de tema*/
+.theme-icon{
+    height: 22px;
+    width: 22px;
+    min-width: 22px;
+    float: right;
+    margin-bottom: 0;
+}
+
+button.dark-switcher:focus{
+    outline: none;
+}
+/* Fin al cambio de tema*/
+/*END MODO DARK*/
+
 /*MODO DARK*/
 body.dark{
     background-color: #202020!important;
     /*background-color: rgb(50, 54, 57);*/
     /*color: #b3b9c5!important;*/
     color: rgb(232, 234, 237);
+    transition: background 0.3s ease;
 }
 nav.dark{
     background-color: #131313!important;
@@ -142,10 +175,17 @@ button.dark-switcher{
     border: none;
     background-color: transparent;
 }
-.theme-icon {
+/*.theme-icon {
     height: 24px;
     width: 24px;
     min-width: 24px;
     margin-bottom: 0;
 }
-/*END MODO DARK*/
+*//*END MODO DARK*/
+@media (min-width: 768px) {
+    .navbar-expand-md .navbar-nav .nav-link {
+        padding-right: 1rem;
+        padding-left: 1rem;
+        /*font-size: 1.25rem;*/
+    }
+}
