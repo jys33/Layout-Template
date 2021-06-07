@@ -142,11 +142,12 @@ table {font-size: .875rem;}/*14px*/
 /*MODO DARK*/
 /* Correspondiente al cambio de tema*/
 .theme-icon{
-    height: 22px;
-    width: 22px;
-    min-width: 22px;
-    float: right;
-    margin-bottom: 0;
+    /* height: 22px;
+    width: 22px; */
+    /* min-width: 22px; */
+    /* float: right;
+    margin-bottom: 0; */
+    font-size: 18px;
 }
 
 button.dark-switcher:focus{

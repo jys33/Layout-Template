@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	        currentTime = null;
 	        
 	    var animateScroll = function(timestamp){
-	        if (!currentTime) currentTime = timestamp;        
+	        if (!currentTime) currentTime = timestamp;
 	        var progress = timestamp - currentTime;
 	        var val = Math.max(Math.easeInOutQuad(progress, start, -start, duration), 0);
 	        window.scrollTo(0, val);
@@ -88,7 +88,8 @@ function checkTheme() {
 
 	querySelector('body').setAttribute('class', localStorage.theme);
 	if(querySelector('body').classList.contains('dark')){
-		querySelector('.theme-icon').setAttribute('src', sunIcon);
+		// querySelector('.theme-icon').setAttribute('src', sunIcon);
+		querySelector('.theme-icon').textContent = sunIcon;
 		querySelector('.theme-icon').setAttribute('alt', 'Light Mode');
 
 		querySelector('.navbar').classList.add('navbar-dark');
@@ -104,11 +105,10 @@ function checkTheme() {
 }
 
 function darkLight() {
-	var icon, alt;
+	var icon;
 	if(localStorage.theme != 'dark'){
 		localStorage.theme = 'dark';
 		icon = sunIcon;
-		alt = 'Light Mode';
 		querySelector('.navbar').classList.add('navbar-dark');
 		querySelector('.navbar').classList.add('dark');
 		var labels = document.getElementsByTagName('label');
@@ -117,7 +117,6 @@ function darkLight() {
 		}
 	} else {
 		icon = moonIcon;
-		alt = 'Dark Mode';
 		localStorage.theme = '';
 		querySelector('.navbar').classList.remove('dark');
 		var labels = document.getElementsByTagName('label');
@@ -125,8 +124,8 @@ function darkLight() {
 			labels[i].classList.remove('dark');
 		}
 	}
-	querySelector('.theme-icon').setAttribute('alt', alt);
-	querySelector('.theme-icon').setAttribute('src', icon);
+	// querySelector('.theme-icon').setAttribute('src', icon);
+	querySelector('.theme-icon').textContent = icon;
 	querySelector('body').setAttribute('class', localStorage.theme);
 }
 

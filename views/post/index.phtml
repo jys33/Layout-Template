@@ -1,10 +1,13 @@
-<section class="content" style="padding: 0.625rem;">
+<?php
+$n = count($posts) - 1;
+?>
+<section class="content" style="/*padding: 0.625rem;*/">
     <h1 class="text-crimson mb-5">Últimas Publicaciones
         <?php if (isset($_SESSION['user_id'])): ?>
         <a href="create.php" class="btn btn-sm btn-primary float-right mt-2" title="Agregar post">Nuevo</a>
         <?php endif ?>
     </h1>
-    <?php foreach ($posts as $post): ?>
+    <?php foreach ($posts as $key => $post): ?>
         <div class="row">
             <div class="col-md-12">
                 <h2 class="h3"><?= $post['title']; ?></h2>
@@ -13,20 +16,22 @@
         <div class="row">
             <div class="col-md-12">
                 <p style="text-align: justify;"><?= nl2br($post['body']); ?></p>
-                <span class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  dateFormat($post['created_on']) ?>
+                <div class="text-muted small"><?= 'Por ' . $post['user_name'] . ' | '  .  dateFormat($post['created_on']) ?>
                     <?php
                     $user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : false;
                     if($user == $post['author_id']): ?>
-                    <a href="update.php?id=<?= $post['id'] ?>" class="btn ml-2 pr-0" title="Editar post"><i class="material-icons" style="color: orange;">edit</i></a>
+                    <a href="update.php?id=<?= $post['id'] ?>" class="btn ml-2 pr-0" title="Editar post"><span class="pen emoji">🖊️</span></a>
                     <form action="delete.php" method="POST" class="d-inline">
-                        <input type="hidden" name="id" value="<?= $post['id'] ?>" readonly onmousedown="return false;">
-                        <button type="submit" class="btn" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar post"><i class="material-icons" style="color: crimson;">delete</i></button>
+                        <input type="hidden" name="id" value="<?= $post['id'] ?>" onmousedown="return false;">
+                        <button type="submit" class="btn" onclick="return confirm('¿Estás absolutamente seguro que quieres eliminar el post <?= htmlspecialchars( $post['title'] ) ?>?')" title="Eliminar post">
+                            <span class="cross-mark emoji">❌</span>
+                        </button>
                     </form>
                     <?php endif ?>
-                </span>
+                </div>
             </div>
         </div>
-        <?php if ($post !== end($posts)): ?>
+        <?php if ($key < $n): ?>
         <hr style="border-top: 1px solid #d2d1d1;">
         <?php endif ?>
     <?php endforeach ?>

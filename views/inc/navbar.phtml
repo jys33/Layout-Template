@@ -1,10 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: #344D90;">
     <div class="container">
-        <a class="navbar-brand mb-1" href="index.php">Julio Cesar</a>
+        <a class="navbar-brand mb-1" href="index.php">NeoLn</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="about.php">Acerca</a></li>
@@ -16,15 +15,14 @@
             ?>
                 <li class="nav-item"><a class="nav-link" href="index.php">Posts</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.php">Perfil</a></li>
-                <span class="navbar-text mr-sm-2 ml-sm-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></span>
+                <li class="navbar-text mr-sm-2 ml-sm-2">Bienvenido &nbsp;<span style=""><?= htmlspecialchars($user['user_name']) ?>!</span></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php" onclick="return confirm('¿Deseas cerrar la sesión?');">Salir</a></li>
             <?php else: ?>
                 <li class="nav-item"><a class="nav-link" href="register.php">Registrarse</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.php">Ingresar</a></li>
             <?php endif ?>
                 <li class="nav-item">
-                    <button class="nav-link dark-switcher" title="Toggle Dark Mode"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTI4IDEyODsiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogIDxwYXRoIGQ9Ik0xMDUuODcsMTQuOTljLTMuNzQtMy4zOS03LjkxLTYuMzgtMTIuNDItOC44OWMtMC44Ny0wLjQ5LTItMC4zNS0yLjcxLDAuMzMgYy0wLjcxLDAuNjgtMC44MywxLjczLTAuMjksMi41M2MxNS42MywyMi45MywxMi4yOSw1Mi41Mi04LjExLDcxLjk3Yy0xMS45LDExLjM1LTI3Ljg1LDE3LjYtNDQuOTEsMTcuNiBjLTExLjM5LDAtMjIuNTQtMi44Ni0zMi4yNC04LjI3Yy0wLjg3LTAuNDktMi0wLjM2LTIuNzEsMC4zM2MtMC43MSwwLjY4LTAuODMsMS43Mi0wLjI4LDIuNTNjMi44MSw0LjEyLDYuMTIsNy45Myw5Ljg2LDExLjMyIGMxMi42MSwxMS40NSwyOS4yNywxNy43Niw0Ni45LDE3Ljc2YzE4LjI3LDAsMzUuMzQtNi43LDQ4LjA5LTE4Ljg2YzEyLjUzLTExLjk0LDE5LjMxLTI3LjcxLDE5LjA5LTQ0LjQgQzEyNS45Miw0Mi4yNSwxMTguNzIsMjYuNjQsMTA1Ljg3LDE0Ljk5eiIgc3R5bGU9ImZpbGw6I0ZDQzIxQjsiLz4KPC9zdmc+" class="theme-icon" alt="Dark Mode">
-                    </button>
+                    <button class="nav-link dark-switcher theme-icon pr-0" title="Toggle Dark Mode">🌙</button>
                 </li>
             </ul>
         </div>

@@ -86,7 +86,7 @@ function logout(){
     // destroy session
     session_destroy();
 
-    return redirect('index.php')
+    return redirect('index.php');
 }
 
 //
